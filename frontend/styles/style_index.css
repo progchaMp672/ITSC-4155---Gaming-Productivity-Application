@@ -1,11 +1,74 @@
+    /*
+    COLOR SCHEME HEX CODES:
+      raisin black: #202030
+      English Violet: #39304A
+      Walnut Brown: #635C51
+      Beaver: #958975
+      Celadon(Green): #B4CEB3
+
+    */
+    
+    
+    
+    
     body {
+      background-color: #202030;
+      color: #B4CEB3;
       font-family: Arial, sans-serif;
-      display: flex;
+      
+
       flex-direction: column;
-      align-items: center;
       margin: 0;
-      padding: 20px;
+      padding: 0px;
     }
+
+    header {
+      text-align: center;
+      font-size: 30px;
+    }
+
+    /*=======================
+            NAV BAR CSS
+    =========================*/
+
+    .nav-bar {
+      align-self: stretch;
+      text-align: center;
+      font-size: 25px;
+      width: 100%; 
+      align-items: center;
+    }
+
+    .nav-bar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 15px;
+      display: flex;
+      background-color: #5C5447;
+      width: 100%;
+    }
+    .nav-bar a {
+      color: #D6FFF6;
+      margin-left: 100%;
+
+    }
+    .nav-bar a:visited {
+      color: #D6FFF6
+
+    }
+    .nav-bar a:hover {
+      color: #D6FFF6
+
+    }
+    .nav-bar li {
+      margin-right: 15%;
+    }
+
+    /*=======================
+            MAIN
+    =========================*/
+
+
 
     main {
       display: flex;
@@ -13,8 +76,9 @@
       width: 90%;
     }
 
+    
     section {
-      border: 2px solid black;
+      border: 2px solid #202030;
       padding: 10px;
     }
 
@@ -26,7 +90,8 @@
         gap:10px;
     }
     .game-area {
-      background: limegreen;
+      background: #B4CEB3;
+      color: #202030;
       height: 200px;
       display: flex;
       justify-content: center;
@@ -34,12 +99,12 @@
     }
 
     .log {
-      background: black;
+      background: #39304A;
       color: white;
       font-family: monospace;
       height: 300px;        
       padding: 10px;
-      border: 2px solid white;
+      border: 2px solid black;
 
       /* scrolling */
       overflow-y: auto;     
@@ -49,6 +114,7 @@
 
     /* Task list and player inventory */
     .right {
+      color: #202030;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -56,12 +122,24 @@
     }
 
     .tasks {
-      background: lightgray;
+      
+      background: #B0A990;
       /* scrolling  */
       overflow-y: auto;     
       overflow-x: hidden; 
     }
 
     .stats {
-      background: cornflowerblue;
+      background: #B4CEB3;
+    }
+
+    a {
+      padding: 30px;
+      color: #958A75;
+      text-decoration: none;
+    }
+    a:visited {
+      padding: 30px;
+      color: #958A75;
+      text-decoration: none;
     }

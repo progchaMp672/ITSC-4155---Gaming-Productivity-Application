@@ -1,0 +1,83 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*.team-section {
+    text-align: center;
+}*/
+
+.team-title {
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.team-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.team-member {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    max-width: 220px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.member-photo {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.member-info {
+    padding: 15px;
+}
+
+.member-info h3 {
+    margin: 10px 0 5px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.member-info p {
+    font-size: 0.95em;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* Small icons below each box */
+.member-icons {
+    margin: 10px 0 15px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.member-icons img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
