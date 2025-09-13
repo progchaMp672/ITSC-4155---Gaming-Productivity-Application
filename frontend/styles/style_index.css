@@ -1,0 +1,67 @@
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    main {
+      display: flex;
+      gap: 20px;
+      width: 90%;
+    }
+
+    section {
+      border: 2px solid black;
+      padding: 10px;
+    }
+
+    /* Left area */
+    .left {
+        flex:2; 
+        display:flex; 
+        flex-direction:column; 
+        gap:10px;
+    }
+    .game-area {
+      background: limegreen;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .log {
+      background: black;
+      color: white;
+      font-family: monospace;
+      height: 300px;        
+      padding: 10px;
+      border: 2px solid white;
+
+      /* scrolling */
+      overflow-y: auto;     
+      overflow-x: hidden;   /* prevents scrolling sideways */
+    }
+
+
+    /* Task list and player inventory */
+    .right {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .tasks {
+      background: lightgray;
+      /* scrolling  */
+      overflow-y: auto;     
+      overflow-x: hidden; 
+    }
+
+    .stats {
+      background: cornflowerblue;
+    }

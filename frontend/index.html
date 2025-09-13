@@ -1,37 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic HTML Skeleton</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accountability Hero!</title>
+  <link rel="stylesheet" href="styles/style_index.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Website</h1>
-    </header>
-
+  <header>
+    <h1>Accountability Hero!</h1>
     <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="developers.html">Developers</a>
     </nav>
+  </header>
 
-    <main>
-        <section>
-            <h2>Main Section</h2>
-            <p>This is a paragraph inside the main content area.</p>
-        </section>
-
+  <main>
+    <!-- Player Display and Log -->
+    <section class="left">
+      <section class="game-area">
+        <p>Character Display</p>
+      </section>
+      <section class="log">
         <article>
-            <h2>Article Title</h2>
-            <p>This is an article section.</p>
+          <p>You completed x task!</p>
+          <p>You gain 5 xp!</p>
+          <p>You gain 5 gold!</p>
         </article>
-    </main>
+      </section>
+    </section>
 
-    <footer>
-        <p>&copy; 2025 My Website</p>
-    </footer>
+    <!-- Task list and Player Inventory -->
+    <section class="right">
+      <section class="tasks">
+        <h2>Tasks</h2>
+        <ul>
+          <li><label><input type="checkbox"> Exercise for 30 minutes</label></li>
+          <li><label><input type="checkbox"> Get groceries</label></li>
+          <li><label><input type="checkbox"> Study for 30 minutes</label></li>
+          <li><label><input type="checkbox"> Read 15 pages of book</label></li>
+        </ul>
+      </section>
+
+      <section class="stats">
+        <h2>Player Stats</h2>
+        <p><strong>LEVEL 1</strong></p>
+        <p>EXP 5/10</p>
+        <p>GOLD 5</p>
+        <hr>
+        <p><strong>LOGIN BONUS!</strong></p>
+        <p>DISPLAY GOES HERE</p>
+        <hr>
+        <p><strong>EQUIPMENT</strong></p>
+        <p>DISPLAY GOES HERE</p>
+      </section>
+    </section>
+  </main>
+  <footer>
+
+  </footer>
 </body>
 </html>
