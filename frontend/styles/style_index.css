@@ -9,14 +9,14 @@
     */
     
     
+
+    * { box-sizing: border-box; }
     
     
     body {
       background-color: #202030;
       color: #B4CEB3;
       font-family: Arial, sans-serif;
-      
-
       flex-direction: column;
       margin: 0;
       padding: 0px;
@@ -32,38 +32,34 @@
     =========================*/
 
     .nav-bar {
-      align-self: stretch;
-      text-align: center;
-      font-size: 25px;
-      width: 100%; 
+      
+      width: 100%;
+      background-color: #13131d;
+    }
+
+    .nav-bar, .nav-inner {
+      margin: 0 auto;  
+      padding: 10px 16px;
+      display: flex;
+      justify-content: center;
       align-items: center;
     }
 
     .nav-bar ul {
       list-style-type: none;
-      margin: 0;
-      padding: 15px;
+      margin:0;
       display: flex;
-      background-color: #5C5447;
-      width: 100%;
+      
     }
     .nav-bar a {
       color: #D6FFF6;
-      margin-left: 100%;
 
     }
-    .nav-bar a:visited {
+    .nav-bar a:visited, .nav-bar a:hover {
       color: #D6FFF6
 
     }
-    .nav-bar a:hover {
-      color: #D6FFF6
-
-    }
-    .nav-bar li {
-      margin-right: 15%;
-    }
-
+    
     /*=======================
             MAIN
     =========================*/
@@ -76,10 +72,22 @@
       width: 90%;
     }
 
-    
-    section {
-      border: 2px solid #202030;
-      padding: 10px;
+    /*
+    Both borders
+    */
+
+    .boxes {
+      margin:5px;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px #000000;
+    }
+
+    /*
+    SECTION SPECIFIC SPACING FOR UPPER BOXES
+    */  
+    .upper-left, .upper-right {
+      margin-top: 30px;
     }
 
     /* Left area */
