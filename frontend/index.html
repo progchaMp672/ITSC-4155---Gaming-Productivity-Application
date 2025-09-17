@@ -49,20 +49,30 @@
 
       <section class="stats boxes lower-right">
         <h2>Player Stats</h2>
-        <p><strong>LEVEL 1</strong></p>
-        <p>EXP 5/10</p>
-        <p>GOLD 5</p>
+        <div class="level-display" id="levelDisplay">LEVEL 1</div>
+        <div>EXP: <span id="currentXP">5</span>/<span id="maxXP">10</span></div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="xpBar"></div>
+        </div>
+        <div class="gold-display">
+            GOLD: <span class="coin">🪙</span> <span id="goldAmount">5</span>
+        </div>
+        <div class="streak-counter">
+            <span class="fire-icon">🔥</span>
+            <span>Streak: <span id="streakCount">3</span> days</span>
+        </div>
         <hr>
         <p><strong>LOGIN BONUS!</strong></p>
-        <p>DISPLAY GOES HERE</p>
+        <p>+50 XP Daily Bonus Claimed!</p>
         <hr>
-        <p><strong>EQUIPMENT</strong></p>
-        <p>DISPLAY GOES HERE</p>
+        <p><strong>ACHIEVEMENTS</strong></p>
+        <p id="recentAchievement">Task Master: Complete 5 tasks</p>
       </section>
     </section>
   </main>
   <footer>
 
   </footer>
+<script src="scripts/tasks.js"></script>
 </body>
 </html>
