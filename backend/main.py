@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from database import Base, engine
+from backend.database import Base, engine
+from backend.routers import user, task
 app = FastAPI()
 
 origins = ["http://localhost:3000", "http://127.0.0.1:8000"]
@@ -18,3 +19,6 @@ Base.metadata.create_all(bind=engine)
 @app.get("/")
 def read_root():
     return {"message": "Welcome to Accountability Hero Backend!"}
+
+app.include_router(user.router)
+app.include_router(task.router)
