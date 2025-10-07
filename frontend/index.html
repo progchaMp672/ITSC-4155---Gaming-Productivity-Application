@@ -24,7 +24,20 @@
     <!-- Player Display and Log -->
     <section class="left">
       <section class="game-area boxes upper-left">
-        <p>Character Display</p>
+        <section class="character_display">
+          <section class="map">
+            <img src="" alt="map">
+            <!-- Spaces -->
+            <section class="space" id="space1">1</section>
+            <section class="space" id="space2">2</section>
+
+            <section class="character" id="character">
+              <img src="" alt="character">
+            </section>
+          </section>
+          
+          <button id="rollButton">Roll 🎲</button>
+        </section>
       </section>
       <section class="log boxes lower-left">
         <article>
@@ -45,6 +58,10 @@
           <li><label><input type="checkbox"> Study for 30 minutes</label></li>
           <li><label><input type="checkbox"> Read 15 pages of book</label></li>
         </ul>
+          <input type="text" id="newTaskInput" placeholder="Add a new task">
+          <button id="addTaskButton">Add Task</button>
+
+          <p id="rollCounter">🎲 Rolls Available: <span id="rollCount">0</span></p>
       </section>
 
       <section class="stats boxes lower-right">
@@ -74,5 +91,6 @@
 
   </footer>
 <script src="scripts/tasks.js"></script>
+<script src="scripts/characterDisplay.js"></script>
 </body>
 </html>
