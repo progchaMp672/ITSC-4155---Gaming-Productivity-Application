@@ -1,6 +1,6 @@
 class conf:
     db_host = "localhost"
-    db_name = "final_project"
+    db_name = "accountability_hero"
     db_port = 3306
     db_user = "root"
     db_password = "root"
