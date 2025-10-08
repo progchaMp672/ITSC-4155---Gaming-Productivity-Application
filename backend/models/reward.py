@@ -16,12 +16,12 @@ class Reward(Base):
     __tablename__ = "rewards"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String)
-    description = Column(String)
+    name = Column(String(255))
+    description = Column(String(255))
     type = Column(Enum(RewardType))
     rarity = Column(Enum(Rarity))
     cost_points = Column(Integer)
-    image_url = Column(String)
+    image_url = Column(String(255))
     is_active = Column(Boolean, default=True)
 
     user_rewards = relationship("UserReward", back_populates="reward")

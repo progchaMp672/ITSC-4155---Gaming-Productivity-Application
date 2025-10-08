@@ -12,8 +12,8 @@ class Task(Base):
     __tablename__ = "tasks"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String)
-    description = Column(String)
+    title = Column(String(255))
+    description = Column(String(255))
     completed = Column(Boolean, default=False)
     priority = Column(Enum(PriorityEnum), default=PriorityEnum.medium)
     due_date = Column(DateTime)

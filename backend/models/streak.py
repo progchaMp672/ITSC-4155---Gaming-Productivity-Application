@@ -10,6 +10,6 @@ class Streak(Base):
     current_streak = Column(Integer, default=0)
     longest_streak = Column(Integer, default=0)
     last_activity = Column(Date)
-    streak_type = Column(String)
+    streak_type = Column(String(255))
 
     user = relationship("User", back_populates="streaks")
