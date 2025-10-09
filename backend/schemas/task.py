@@ -6,7 +6,7 @@ class TaskBase(BaseModel):
     title: str
     description: Optional[str] = None
     completed: Optional[bool] = False
-    priority: Optional[str] = "medium"
+   #priority: Optional[str] = "medium"
     due_date: Optional[datetime] = None
     points_reward: Optional[int] = 0
     category_id: Optional[int] = None
@@ -18,7 +18,7 @@ class TaskUpdate(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     completed: Optional[bool] = None
-    priority: Optional[str] = None
+    #priority: Optional[str] = None
     due_date: Optional[datetime] = None
     completed_at: Optional[datetime] = None
     points_reward: Optional[int] = None

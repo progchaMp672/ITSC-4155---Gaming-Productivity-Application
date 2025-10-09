@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from backend.database import get_db
 from backend.models.task import Task
+from backend.models.category import Category
 from backend.schemas.task import TaskCreate, TaskResponse
 
 router = APIRouter(prefix="/tasks", tags=["Tasks"])
@@ -9,6 +10,11 @@ router = APIRouter(prefix="/tasks", tags=["Tasks"])
 # Creates a task
 @router.post("/", response_model=TaskResponse)
 def create_task(task: TaskCreate, db: Session = Depends(get_db)):
+
+    category = db.query(Category).filter(Category.id == task.category_id).first()
+    if not category:
+        raise HTTPException(status_code=400, detail="Invalid category selected")
+
     new_task = Task(**task.model_dump())
     db.add(new_task)
     db.commit()

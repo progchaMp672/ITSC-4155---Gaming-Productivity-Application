@@ -58,8 +58,7 @@
           <li><label><input type="checkbox"> Study for 30 minutes</label></li>
           <li><label><input type="checkbox"> Read 15 pages of book</label></li>
         </ul>
-          <input type="text" id="newTaskInput" placeholder="Add a new task">
-          <button id="addTaskButton">Add Task</button>
+          
 
           <p id="rollCounter">🎲 Rolls Available: <span id="rollCount">0</span></p>
       </section>
@@ -85,7 +84,28 @@
         <p><strong>ACHIEVEMENTS</strong></p>
         <p id="recentAchievement">Task Master: Complete 5 tasks</p>
       </section>
+
+
+      <section class="createTask boxes">
+        <h2>Create a new Task!</h2>
+
+        <input type="text" id="newTaskTitleInput" placeholder="Name of your new task">
+        <input type="text" id="newTaskDescriptionInput" placeholder="description">
+        <br>
+        <br>
+        <button class ="dailyGoalButton" data-id="1">Daily Goals</button>
+        <button class ="weeklyGoalButton" data-id="2">Weekly Goals</button>
+        <button class ="monthlyGoalButton" data-id="3">Monthly Goals</button>
+        <button class ="lifetimeGoalButton" data-id="4">Lifetime Goals</button>
+        <br>
+        <br>
+
+        <button id="addTaskButton">Add Task</button>
+
+      </section>
     </section>
+
+
   </main>
   <footer>
 
