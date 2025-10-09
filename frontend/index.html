@@ -21,7 +21,8 @@
   </header>
 
   <main>
-    <!-- Player Display and Log -->
+    <section class="top">
+      <!-- Player Display and Log -->
     <section class="left">
       <section class="game-area boxes upper-left">
         <section class="character_display">
@@ -46,19 +47,61 @@
           <p>You gain 5 gold!</p>
         </article>
       </section>
+
+      <section class="bottom">
+        <section class="createTaskBox boxes">
+          <section class="createTaskBoxHeader">
+            <h2>Create a new Task!</h2>
+          </section>
+          
+
+          <section class="taskNameDescription">
+            <label for="newTaskTitleInput"> <strong>Task name:</strong> </label>
+            <br>
+            <input type="text" id="newTaskTitleInput" placeholder="Enter a name">
+            <br><br>
+            <label for="newTaskDescriptionInput"><strong>Description:</strong> </label>
+            <br>
+            <input type="text" id="newTaskDescriptionInput" placeholder="description">
+
+          </section>
+          
+          <br>
+          <section class="categorySelection">
+            <label for="categoryButtons"><strong>Select a Category:</strong></label>
+            <br>
+            <section id="categoryButtons">
+              <button class ="dailyGoalButton" data-id="1">Daily Goals</button>
+              <button class ="weeklyGoalButton" data-id="2">Weekly Goals</button>
+              <button class ="monthlyGoalButton" data-id="3">Monthly Goals</button>
+              <button class ="lifetimeGoalButton" data-id="4">Lifetime Goals</button>
+            </section>
+          </section>
+         
+
+          
+          <br><br>
+          <label for="newTaskDueDateInput"><strong>Enter Task Due Date</strong> (optional):</label>
+          <br>
+          <input type="date" id="newTaskDueDateInput" placeholder="Due date (optional)">
+          
+    
+          <br><br>
+  
+          <button id="addTaskButton">Add Task</button>
+  
+        </section>
+      </section>
     </section>
 
     <!-- Task list and Player Inventory -->
     <section class="right">
       <section class="tasks boxes upper-right">
         <h2>Tasks</h2>
-        <ul>
-          <li><label><input type="checkbox"> Exercise for 30 minutes</label></li>
-          <li><label><input type="checkbox"> Get groceries</label></li>
-          <li><label><input type="checkbox"> Study for 30 minutes</label></li>
-          <li><label><input type="checkbox"> Read 15 pages of book</label></li>
-        </ul>
-          
+          <ul>
+            <li>Example list item</li>
+            <li>Example list item</li>
+          </ul>
 
           <p id="rollCounter">🎲 Rolls Available: <span id="rollCount">0</span></p>
       </section>
@@ -84,26 +127,13 @@
         <p><strong>ACHIEVEMENTS</strong></p>
         <p id="recentAchievement">Task Master: Complete 5 tasks</p>
       </section>
-
-
-      <section class="createTask boxes">
-        <h2>Create a new Task!</h2>
-
-        <input type="text" id="newTaskTitleInput" placeholder="Name of your new task">
-        <input type="text" id="newTaskDescriptionInput" placeholder="description">
-        <br>
-        <br>
-        <button class ="dailyGoalButton" data-id="1">Daily Goals</button>
-        <button class ="weeklyGoalButton" data-id="2">Weekly Goals</button>
-        <button class ="monthlyGoalButton" data-id="3">Monthly Goals</button>
-        <button class ="lifetimeGoalButton" data-id="4">Lifetime Goals</button>
-        <br>
-        <br>
-
-        <button id="addTaskButton">Add Task</button>
-
-      </section>
     </section>
+
+    </section>
+    
+
+
+    
 
 
   </main>

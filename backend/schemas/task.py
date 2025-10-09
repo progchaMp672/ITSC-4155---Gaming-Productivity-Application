@@ -1,6 +1,8 @@
 from datetime import datetime
 from pydantic import BaseModel
 from typing import Optional
+from backend.schemas.category import CategoryResponse
+
 
 class TaskBase(BaseModel):
     title: str
@@ -28,6 +30,7 @@ class TaskResponse(TaskBase):
     id: int
     completed_at: Optional[datetime] = None
     user_id: int
+    category: Optional[CategoryResponse] = None
 
     class Config:
         from_attributes = True
