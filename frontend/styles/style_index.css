@@ -274,4 +274,21 @@
       50% { opacity: 0.7; }
     }
 
-    
+    .log { display: flex; flex-direction: column; }
+    .log .log-summary {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .5rem .75rem; border-bottom: 1px solid rgba(0,0,0,.08);
+  background: rgba(0,0,0,.03); border-radius: .5rem .5rem 0 0;
+  font-size: 0.95rem;
+    }
+    .log .xp-summary { display: flex; gap: .5rem; align-items: baseline; }
+    .log .xp-summary .label { font-weight: 600; opacity: .85; }
+    .log .xp-summary .value { font-weight: 700; }
+
+/* optional: keep header visible while log scrolls */
+.log { overflow: auto; }
+.log .log-summary { position: sticky; top: 0; backdrop-filter: blur(2px); }
+
+/* for the temporary “gain” lines fade-out (if you used addToLogTemp) */
+.log article p.fade-out { opacity: 1; transition: opacity 0.4s ease; }
+.log article p.fade-out.fading { opacity: 0; }

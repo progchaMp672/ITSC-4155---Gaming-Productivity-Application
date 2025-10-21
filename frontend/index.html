@@ -21,32 +21,35 @@
   </header>
 
   <main>
-    <!-- Player Display and Log -->
-    <section class="left">
-      <section class="game-area boxes upper-left">
-        <section class="character_display">
-          <section class="map">
-            <img src="" alt="map">
-            <!-- Spaces -->
-            <section class="space" id="space1">1</section>
-            <section class="space" id="space2">2</section>
+<!-- Player Display and Log -->
+<section class="left">
+  <section class="game-area boxes upper-left">
+    <section class="character_display">
+      <section class="map">
+        <img src="" alt="map">
+        <!-- Spaces -->
+        <section class="space" id="space1">1</section>
+        <section class="space" id="space2">2</section>
 
-            <section class="character" id="character">
-              <img src="" alt="character">
-            </section>
-          </section>
-          
-          <button id="rollButton">Roll 🎲</button>
+        <section class="character" id="character">
+          <img src="" alt="character">
         </section>
       </section>
-      <section class="log boxes lower-left">
-        <article>
-          <p>You completed x task!</p>
-          <p>You gain 5 xp!</p>
-          <p>You gain 5 gold!</p>
-        </article>
-      </section>
+      <button id="rollButton">Roll 🎲</button>
     </section>
+  </section>
+
+  <section class="log boxes lower-left">
+    <header class="log-summary">
+      <div class="xp-summary">
+        <span class="label">Amount of XP Gained</span>
+        <span class="value"><span id="xpGainedTotal">0</span> XP</span>
+      </div>
+    </header>
+    <article></article>
+  </section>
+</section>
+
 
     <!-- Task list and Player Inventory -->
     <section class="right">
