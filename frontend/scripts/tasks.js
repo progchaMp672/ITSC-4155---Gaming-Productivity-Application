@@ -70,6 +70,10 @@ function setupTaskCheckboxes() {
                 checkLevelUp();
                 checkAchievements();
 
+                // Show notification and celebration!
+                showNotification('Task Completed! +10 XP, +5 Gold, +1 Roll!');
+                createCelebrationParticles();
+
                 // Prevent double counting this task
                 checkbox.disabled = true;
 
@@ -172,4 +176,68 @@ function setupAddTaskButton() {
             addButton.click();
         }
     });
+}
+
+// Show notification toast message
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        font-weight: bold;
+        font-size: 16px;
+        z-index: 10000;
+        animation: slideInRight 0.5s ease-out, fadeOut 0.5s ease-out 2.5s forwards;
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => notification.remove(), 3000);
+}
+
+// Add celebration particles when task completed
+function createCelebrationParticles() {
+    const colors = ['⭐', '✨', '💫', '🌟'];
+    const statsBox = document.querySelector('.stats');
+    const rect = statsBox.getBoundingClientRect();
+    
+    for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+            const particle = document.createElement('div');
+            particle.textContent = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.cssText = `
+                position: fixed;
+                left: ${rect.left + Math.random() * rect.width}px;
+                top: ${rect.top + rect.height / 2}px;
+                font-size: 20px;
+                pointer-events: none;
+                z-index: 9999;
+                animation: floatUp 1.5s ease-out forwards;
+            `;
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 1500);
+        }, i * 100);
+    }
+}
+
+function completeTask(taskElement) {
+    taskElement.classList.add('completed');
+    
+    // Remove task after 2 seconds
+    setTimeout(() => {
+        taskElement.style.transition = 'opacity 0.5s, transform 0.5s';
+        taskElement.style.opacity = '0';
+        taskElement.style.transform = 'translateX(50px)';
+        
+        setTimeout(() => {
+            taskElement.remove();
+        }, 500);
+    }, 2000);
 }
