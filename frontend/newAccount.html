@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login — Accountability Hero!</title>
+  <title>Create New Account — Accountability Hero!</title>
   <link rel="stylesheet" href="styles/style_login.css"/>
 </head>
 <body>
@@ -18,35 +18,29 @@
     </nav>
   </header>
 
-  <!-- Wrapper for the login card -->
+  <!-- Wrapper for the new account card -->
   <main class="login-wrap">
     <section class="card">
-      <h2>Login</h2>
-      <p class="muted">Use the test account provided below to sign in!</p>
+      <h2>Create New Account</h2>
+      <p class="muted">Enter your Information!</p>
 
-      <form id="loginForm" novalidate>
+      <form id="newAccountForm" novalidate>
         <label for="username">Username</label>
         <input id="username" name="username" autocomplete="username" required />
 
         <label for="password">Password</label>
         <input id="password" name="password" type="password" autocomplete="current-password" required />
 
-        <button type="button" onclick="window.location.href='newAccount.html'">Create New Account</button>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required />
 
-        <button type="submit">Sign in</button>
+        <button type="submit">Register</button>
 
-        <p id="error" class="error" role="alert" aria-live="polite"></p>
       </form>
-
-      <details class="hint">
-        <summary>Test user</summary>
-        <code>username: 123</code><br/>
-        <code>password: 123</code>
-      </details>
     </section>
   </main>
 
   <footer></footer>
-  <script src="scripts/fetchData.js"></script>
+<script src="scripts/createUser.js"></script>
 </body>
 </html>

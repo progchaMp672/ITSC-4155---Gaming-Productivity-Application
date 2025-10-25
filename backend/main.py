@@ -1,9 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI 
 from fastapi.middleware.cors import CORSMiddleware
 from backend.database import Base, engine
 from backend.routers import user as user_router, task as task_router
-from backend.models import (achievement, category, reward, streak, task as
-task_model, user as user_model, user_achievement, user_reward)
+from backend.models import (
+    achievement, category, reward, streak, task as task_model, 
+    user as user_model, user_achievement, user_reward
+)
+
 app = FastAPI(title="Accountability Hero API")
 
 origins = ["*"]
@@ -22,5 +25,6 @@ Base.metadata.create_all(bind=engine)
 def read_root():
     return {"message": "Welcome to Accountability Hero Backend!"}
 
+# --- routers ---
 app.include_router(user_router.router)
 app.include_router(task_router.router)

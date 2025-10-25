@@ -3,6 +3,6 @@ class conf:
     db_name = "hero_app"
     db_port = 3306
     db_user = "root"
-    db_password = "12345"
+    db_password = "H0loliv3"
     app_host = "localhost"
     app_port = 8055
