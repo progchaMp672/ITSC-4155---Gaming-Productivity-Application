@@ -39,6 +39,7 @@ function setupTaskCheckboxes() {
         if (e.target.type === 'checkbox' && e.target.closest('.tasks')) {
             let checkbox = e.target;
             let label = checkbox.parentElement;
+            let taskItem = label.parentElement;
 
             if (checkbox.checked) {
                 // Task completed!
@@ -76,6 +77,17 @@ function setupTaskCheckboxes() {
 
                 // Prevent double counting this task
                 checkbox.disabled = true;
+
+                setTimeout(() => {
+                    taskItem.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    taskItem.style.opacity = '0';
+                    taskItem.style.transform = 'translateX(50px)';
+                    
+                    // Remove from DOM after fade animation completes
+                    setTimeout(() => {
+                        taskItem.remove();
+                    }, 500);
+                }, 2000);
 
             } else {
                 // If ever unchecked (rare, since we disable), restore style
@@ -227,17 +239,3 @@ function createCelebrationParticles() {
     }
 }
 
-function completeTask(taskElement) {
-    taskElement.classList.add('completed');
-    
-    // Remove task after 2 seconds
-    setTimeout(() => {
-        taskElement.style.transition = 'opacity 0.5s, transform 0.5s';
-        taskElement.style.opacity = '0';
-        taskElement.style.transform = 'translateX(50px)';
-        
-        setTimeout(() => {
-            taskElement.remove();
-        }, 500);
-    }, 2000);
-}

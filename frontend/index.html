@@ -57,16 +57,20 @@
     <section class="right">
       <section class="tasks boxes upper-right">
         <h2>Tasks</h2>
-        <ul>
-          <li><label><input type="checkbox"> Exercise for 30 minutes</label></li>
-          <li><label><input type="checkbox"> Get groceries</label></li>
-          <li><label><input type="checkbox"> Study for 30 minutes</label></li>
-          <li><label><input type="checkbox"> Read 15 pages of book</label></li>
-        </ul>
+        <div class="task-input-section">
           <input type="text" id="newTaskInput" placeholder="Add a new task">
           <button id="addTaskButton">Add Task</button>
-
+        </div>
           <p id="rollCounter">🎲 Rolls Available: <span id="rollCount">0</span></p>
+        <div class ="task-list-container">
+          <ul id="taskList">
+            <li><label><input type="checkbox"> Exercise for 30 minutes</label></li>
+            <li><label><input type="checkbox"> Get groceries</label></li>
+            <li><label><input type="checkbox"> Study for 30 minutes</label></li>
+            <li><label><input type="checkbox"> Read 15 pages of book</label></li>
+          </ul>
+        </div>
+          
       </section>
 
       <section class="stats boxes lower-right">
