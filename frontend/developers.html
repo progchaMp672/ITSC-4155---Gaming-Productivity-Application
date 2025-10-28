@@ -1,82 +1,184 @@
 <!DOCTYPE html>
 <html>
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Login</title>
-      <link rel="stylesheet" href="styles/style_dev.css">
-    </head>
-    <body>
-        <header>
-            <h1>Developers of Accountability Hero!</h1>
-            <nav class="nav-bar">
-        <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="developers.html">Developers</a></li>
-      </ul>
-            </nav>
-        </header>
-        <main>
-            <section class="team-container">
-              <article class="team-member">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Developers - Accountability Hero</title>
+<link rel="stylesheet" href="styles/style_dev.css">
+</head>
+<body>
+<header>
+    <a href="index.html" class="logo-link">
+        <h1>🎮 Accountability Hero!</h1>
+    </a>
+    <nav class="nav-bar">
+        <div class="nav-inner">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="developers.html" class="active">Developers</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <section class="team-section">
+        <div class="section-header">
+            <h2>Meet The Team</h2>
+            <p>The heroes behind Accountability Hero - building gamified productivity one task at a time!</p>
+        </div>
+
+        <section class="team-container">
+            <!-- Member 1 -->
+            <article class="team-member" onclick="openModal('member1')">
+                <div class="member-photo-container">
                     <img src="member1.jpg" alt="Member 1 Photo" class="member-photo">
-                    <div class="member-info">
-                <h3>Member 1</h3>
-                    <p>Primary role and contributions during the project.</p>
+                    <div class="level-badge">⭐ DEV 1</div>
+                </div>
+                <div class="member-info">
+                    <h3>Member 1</h3>
+                    <p class="member-role">Role</p>
+                    <p class="member-description">
+                        Summary of contributions during the project goes here.
+                    </p>
+                    <div class="skills-container">
+                        <span class="skill-badge">API</span>
                     </div>
-                    <section class="member-icons">
-                        <img src="test.jpg" alt="icon">
-                    </section>
-                    </article>
+                    <button class="info-btn">
+                        <span class="info-icon">i</span>
+                        View Details
+                    </button>
+                </div>
+            </article>
 
-                <article class="team-member">
+            <!-- Member 2 -->
+            <article class="team-member" onclick="openModal('member2')">
+                <div class="member-photo-container">
                     <img src="member2.jpg" alt="Member 2 Photo" class="member-photo">
-                    <div class="member-info">
-                <h3>Member 2</h3>
-                    <p>Primary role and contributions during the project.</p>
+                    <div class="level-badge">⭐ DEV 2</div>
+                </div>
+                <div class="member-info">
+                    <h3>Member 2</h3>
+                    <p class="member-role">Role</p>
+                    <p class="member-description">
+                        Summary of contributions during the project goes here.
+                    </p>
+                    <div class="skills-container">
+                        <span class="skill-badge">SQL</span>
                     </div>
-                    <section class="member-icons">
-                        <img src="test.jpg" alt="icon">
-                    </section>
-                    </article>
+                    <button class="info-btn">
+                        <span class="info-icon">i</span>
+                        View Details
+                    </button>
+                </div>
+            </article>
 
-                    <article class="team-member">
-                    <img src="member2.jpg" alt="Member 2 Photo" class="member-photo">
-                    <div class="member-info">
-                <h3>Member 3</h3>
-                    <p>Primary role and contributions during the project.</p>
+            <!-- Member 3 -->
+            <article class="team-member" onclick="openModal('member3')">
+                <div class="member-photo-container">
+                    <img src="/frontend/images/placeholder_profile_xia.png" alt="Member 3 Photo" class="member-photo">
+                    <div class="level-badge">⭐ DEV 3</div>
+                </div>
+                <div class="member-info">
+                    <h3>Xia Lee</h3>
+                    <p class="member-role">Frontend Developer</p>
+                    <p class="member-description">
+                        Designed and implemented the gaming-inspired UI/UX. Created responsive layouts and interactive animations for task management features.
+                    </p>
+                    <div class="skills-container">
+                        <span class="skill-badge">HTML</span>
+                        <span class="skill-badge">CSS</span>
+                        <span class="skill-badge">JavaScript</span>
+                        <span class="skill-badge">UI/UX</span>
+                        <span class="skill-badge">ERD Modeling</span>
                     </div>
-                    <section class="member-icons">
-                        <img src="test.jpg" alt="icon">
-                    </section>
-                    </article>
+                    <button class="info-btn">
+                        <span class="info-icon">i</span>
+                        View Details
+                    </button>
+                </div>
+            </article>
 
-                    <article class="team-member">
-                    <img src="member2.jpg" alt="Member 2 Photo" class="member-photo">
-                    <div class="member-info">
-                <h3>Member 4</h3>
-                    <p>Primary role and contributions during the project.</p>
+            <!-- Member 4 -->
+            <article class="team-member" onclick="openModal('member4')">
+                <div class="member-photo-container">
+                    <img src="member2.jpg" alt="Member 4 Photo" class="member-photo">
+                    <div class="level-badge">⭐ DEV 4</div>
+                </div>
+                <div class="member-info">
+                    <h3>Member 4</h3>
+                    <p class="member-role">Role</p>
+                    <p class="member-description">
+                        Summary of contributions during the project goes here.
+                    </p>
+                    <div class="skills-container">
+                        <span class="skill-badge">Java</span>
                     </div>
-                    <section class="member-icons">
-                        <img src="test.jpg" alt="icon">
-                    </section>
-                    </article>
+                    <button class="info-btn">
+                        <span class="info-icon">i</span>
+                        View Details
+                    </button>
+                </div>
+            </article>
 
-                    <article class="team-member">
-                    <img src="member2.jpg" alt="Member 2 Photo" class="member-photo">
-                    <div class="member-info">
-                <h3>Member 5</h3>
-                    <p>Primary role and contributions during the project.</p>
+            <!-- Member 5 -->
+            <article class="team-member" onclick="openModal('member5')">
+                <div class="member-photo-container">
+                    <img src="member2.jpg" alt="Member 5 Photo" class="member-photo">
+                    <div class="level-badge">⭐ DEV 5</div>
+                </div>
+                <div class="member-info">
+                    <h3>Member 5</h3>
+                    <p class="member-role">Role</p>
+                    <p class="member-description">
+                        Summary of contributions during the project goes here.
+                    </p>
+                    <div class="skills-container">
+                        <span class="skill-badge">API</span>
                     </div>
-                    <section class="member-icons">
-                        <img src="test.jpg" alt="icon">
-                    </section>
-                    </article>
-            </section>
-        </main>
-        <footer>
-            
-        </footer>
-    </body>
+                    <button class="info-btn">
+                        <span class="info-icon">i</span>
+                        View Details
+                    </button>
+                </div>
+            </article>
+        </section>
+    </section>
+</main>
+
+<!-- Modal for Member Details -->
+<div id="memberModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h3 id="modalName">Member Name</h3>
+        <p id="modalRole" class="modal-role"></p>
+        <h4>Key Contributions:</h4>
+        <ul id="modalContributions"></ul>
+        <h4>Technologies Used:</h4>
+        <p id="modalTech"></p>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="login.html">Login</a>
+            <a href="developers.html">About the Team</a>
+        </div>
+        
+        <!-- Divider Line -->
+        <div class="footer-divider"></div>
+        
+        <!-- Copyright Information -->
+        <div class="footer-copyright">
+            <p>&copy; <span class="footer-year">2025</span> <span class="footer-brand">Accountability Hero</span>. All rights reserved.</p>
+            <p style="font-size: 0.85em; margin-top: 5px;">Developed by Team Bolting | UNC-Charlotte</p>
+        </div>
+</footer>
+
+<!-- Link to external JavaScript file -->
+<script src="scripts/developers.js"></script>
+</body>
 </html>

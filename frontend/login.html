@@ -8,14 +8,18 @@
 </head>
 <body>
   <header>
-    <h1>Accountability Hero!</h1>
+    <a href="index.html" class="logo-link">
+      <h1>🎮 Accountability Hero!</h1>
+    </a>
     <nav class="nav-bar">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a class="active" href="login.html">Login</a></li>
-        <li><a href="developers.html">Developers</a></li>
-      </ul>
-    </nav>
+    <div class="nav-inner">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="login.html" class="active">Login</a></li>
+            <li><a href="developers.html">Developers</a></li>
+        </ul>
+    </div>
+</nav>
   </header>
 
   <!-- Wrapper for the login card -->
@@ -31,6 +35,8 @@
         <label for="password">Password</label>
         <input id="password" name="password" type="password" autocomplete="current-password" required />
 
+        <button type="button" onclick="window.location.href='newAccount.html'">Create New Account</button>
+
         <button type="submit">Sign in</button>
 
         <p id="error" class="error" role="alert" aria-live="polite"></p>
@@ -44,7 +50,24 @@
     </section>
   </main>
 
-  <footer></footer>
-  <script src="scripts/login.js"></script>
+  
+  <footer>
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="login.html">Login</a>
+            <a href="developers.html">About the Team</a>
+        </div>
+        
+        <!-- Divider Line -->
+        <div class="footer-divider"></div>
+        
+        <!-- Copyright Information -->
+        <div class="footer-copyright">
+            <p>&copy; <span class="footer-year">2025</span> <span class="footer-brand">Accountability Hero</span>. All rights reserved.</p>
+            <p style="font-size: 0.85em; margin-top: 5px;">Developed by Team Bolting | UNC-Charlotte</p>
+        </div>
+  </footer>
+  <script src="scripts/fetchData.js"></script>
 </body>
 </html>

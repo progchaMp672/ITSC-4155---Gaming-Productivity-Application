@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create New Account — Accountability Hero!</title>
+  <link rel="stylesheet" href="styles/style_login.css"/>
+</head>
+<body>
+  <header>
+    <h1>Accountability Hero!</h1>
+    <nav class="nav-bar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="login.html">Login</a></li>
+        <li><a href="developers.html">Developers</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Wrapper for the new account card -->
+  <main class="login-wrap">
+    <section class="card">
+      <h2>Create New Account</h2>
+      <p class="muted">Enter your Information!</p>
+
+      <form id="newAccountForm" novalidate>
+        <label for="username">Username</label>
+        <input id="username" name="username" autocomplete="username" required />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required />
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required />
+
+        <button type="submit">Register</button>
+
+      </form>
+    </section>
+  </main>
+
+  <footer></footer>
+<script src="scripts/createUser.js"></script>
+</body>
+</html>

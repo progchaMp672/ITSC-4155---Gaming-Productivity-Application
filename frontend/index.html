@@ -8,12 +8,14 @@
 </head>
 <body>
   <header>
-    <h1>Accountability Hero!</h1>
+    <a href="index.html" class="logo-link">
+      <h1>🎮 Accountability Hero!</h1>
+    </a>
     <nav class="nav-bar">
       <div class="nav-inner">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="login.html">Login</a></li>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="login.html">Login</a></li> 
           <li><a href="developers.html">Developers</a></li>
         </ul>
       </div> 
@@ -36,16 +38,18 @@
               <img src="" alt="character">
             </section>
           </section>
-          
           <button id="rollButton">Roll 🎲</button>
         </section>
       </section>
+
       <section class="log boxes lower-left">
-        <article>
-          <p>You completed x task!</p>
-          <p>You gain 5 xp!</p>
-          <p>You gain 5 gold!</p>
-        </article>
+        <header class="log-summary">
+          <div class="xp-summary">
+            <span class="label">Amount of XP Gained</span>
+            <span class="value"><span id="xpGainedTotal">0</span> XP</span>
+          </div>
+        </header>
+        <article></article>
       </section>
 
       <section class="bottom">
@@ -94,6 +98,7 @@
       </section>
     </section>
 
+
     <!-- Task list and Player Inventory -->
     <section class="right">
       <section class="tasks boxes upper-right">
@@ -103,7 +108,20 @@
             <li>Example list item</li>
           </ul>
 
+        <div class="task-input-section">
+          <input type="text" id="newTaskInput" placeholder="Add a new task">
+          <button id="addTaskButton">Add Task</button>
+        </div>
           <p id="rollCounter">🎲 Rolls Available: <span id="rollCount">0</span></p>
+        <div class ="task-list-container">
+          <ul id="taskList">
+            <li><label><input type="checkbox"> Exercise for 30 minutes</label></li>
+            <li><label><input type="checkbox"> Get groceries</label></li>
+            <li><label><input type="checkbox"> Study for 30 minutes</label></li>
+            <li><label><input type="checkbox"> Read 15 pages of book</label></li>
+          </ul>
+        </div>
+          
       </section>
 
       <section class="stats boxes lower-right">
@@ -138,7 +156,22 @@
 
   </main>
   <footer>
-
+    <div class="footer-content">
+        <!-- Footer Links (Optional) -->
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="login.html">Login</a>
+            <a href="developers.html">About the Team</a>
+        </div>
+        
+        <!-- Divider Line -->
+        <div class="footer-divider"></div>
+        
+        <!-- Copyright Information -->
+        <div class="footer-copyright">
+            <p>&copy; <span class="footer-year">2025</span> <span class="footer-brand">Accountability Hero</span>. All rights reserved.</p>
+            <p style="font-size: 0.85em; margin-top: 5px;">Developed by Team Bolting | UNC-Charlotte</p>
+      </div>
   </footer>
 <script src="scripts/tasks.js"></script>
 <script src="scripts/characterDisplay.js"></script>

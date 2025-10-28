@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI 
 from fastapi.middleware.cors import CORSMiddleware
 from backend.database import get_db, Base, engine
 from backend.routers import user as user_router, task as task_router
@@ -28,5 +28,6 @@ with next(get_db()) as db:
 def read_root():
     return {"message": "Welcome to Accountability Hero Backend!"}
 
+# --- routers ---
 app.include_router(user_router.router)
 app.include_router(task_router.router)
