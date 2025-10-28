@@ -23,7 +23,8 @@
   </header>
 
   <main>
-    <!-- Player Display and Log -->
+    <section class="top">
+      <!-- Player Display and Log -->
     <section class="left">
       <section class="game-area boxes upper-left">
         <section class="character_display">
@@ -50,6 +51,51 @@
         </header>
         <article></article>
       </section>
+
+      <section class="bottom">
+        <section class="createTaskBox boxes">
+          <section class="createTaskBoxHeader">
+            <h2>Create a new Task!</h2>
+          </section>
+          
+
+          <section class="taskNameDescription">
+            <label for="newTaskTitleInput"> <strong>Task name:</strong> </label>
+            <br>
+            <input type="text" id="newTaskTitleInput" placeholder="Enter a name">
+            <br><br>
+            <label for="newTaskDescriptionInput"><strong>Description:</strong> </label>
+            <br>
+            <input type="text" id="newTaskDescriptionInput" placeholder="description">
+
+          </section>
+          
+          <br>
+          <section class="categorySelection">
+            <label for="categoryButtons"><strong>Select a Category:</strong></label>
+            <br>
+            <section id="categoryButtons">
+              <button class ="dailyGoalButton" data-id="1">Daily Goals</button>
+              <button class ="weeklyGoalButton" data-id="2">Weekly Goals</button>
+              <button class ="monthlyGoalButton" data-id="3">Monthly Goals</button>
+              <button class ="lifetimeGoalButton" data-id="4">Lifetime Goals</button>
+            </section>
+          </section>
+         
+
+          
+          <br><br>
+          <label for="newTaskDueDateInput"><strong>Enter Task Due Date</strong> (optional):</label>
+          <br>
+          <input type="date" id="newTaskDueDateInput" placeholder="Due date (optional)">
+          
+    
+          <br><br>
+  
+          <button id="addTaskButton">Add Task</button>
+  
+        </section>
+      </section>
     </section>
 
 
@@ -57,6 +103,11 @@
     <section class="right">
       <section class="tasks boxes upper-right">
         <h2>Tasks</h2>
+          <ul>
+            <li>Example list item</li>
+            <li>Example list item</li>
+          </ul>
+
         <div class="task-input-section">
           <input type="text" id="newTaskInput" placeholder="Add a new task">
           <button id="addTaskButton">Add Task</button>
@@ -95,6 +146,14 @@
         <p id="recentAchievement">Task Master: Complete 5 tasks</p>
       </section>
     </section>
+
+    </section>
+    
+
+
+    
+
+
   </main>
   <footer>
     <div class="footer-content">

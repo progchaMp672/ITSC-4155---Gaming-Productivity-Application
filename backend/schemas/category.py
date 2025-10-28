@@ -12,6 +12,8 @@ class CategoryCreate(CategoryBase):
 
 class CategoryResponse(CategoryBase):
     id: int
+    name: str
+    color: Optional[str] = "#ddd"  
 
     class Config:
         from_attributes = True
