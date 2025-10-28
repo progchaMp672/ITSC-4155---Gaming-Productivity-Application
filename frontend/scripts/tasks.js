@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", loadTasks);
 
 /* ===============================================================================
                                 LOADING TASK LIST
+===============================================================================*/
 
 async function loadTasks() {
     const res = await fetch(API_URL);
@@ -71,9 +72,7 @@ async function loadTasks() {
 
 /* ===============================================================================
                                 ADD NEW TASK FUNCTION
-
-
-                                Need info:
+                                  Need info:
 
                                 title
                                 description
@@ -84,7 +83,7 @@ async function loadTasks() {
                                 user_id (from backend)
                                 category_id(maybe from a button?)
 
-
+===============================================================================*/
 
 const categoryButtons = document.querySelectorAll("#categoryButtons button");
 let selectedCategoryId = null;
@@ -147,7 +146,7 @@ addTaskButton.addEventListener("click", async () => {
 
 /* ===============================================================================
                                 COMPLETE TASK FUNCTION  
-
+===============================================================================*/
 taskList.addEventListener("change", async (e) => {
     if (e.target.matches("input[type='checkbox']")) {
       const id = e.target.dataset.id;
@@ -167,6 +166,7 @@ taskList.addEventListener("change", async (e) => {
 
   /* ===============================================================================
                                 DELETE TASK FUNCTION  
+===============================================================================*/
 
 taskList.addEventListener("click", async (e) => {
     if (e.target.matches(".delete-btn")) {
@@ -399,7 +399,6 @@ function setupAddTaskButton() {
             addButton.click();
         }
     });
-}
 
 // Show notification toast message
 function showNotification(message) {
