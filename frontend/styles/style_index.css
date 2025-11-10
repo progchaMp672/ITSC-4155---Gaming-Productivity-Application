@@ -9,6 +9,8 @@
   */
   
   /* ----- Base ----- */
+
+  
   * { box-sizing: border-box; }
   
   
@@ -947,3 +949,97 @@ footer {
   }
 }
 
+
+
+
+
+    /*=====================================================================
+           Create task CSS
+    =======================================================================*/
+
+
+.createTaskBox {
+  padding:0px;
+  font-size: 25px;
+  text-align: center;
+  background-color: #58587F;
+  color: #202030;
+}
+
+.createTaskBoxHeader {
+  
+  padding:20px;
+  border-radius: 8px;
+}
+.categorySelection {
+  background-color: #B4CEB3;
+  padding:20px;
+  border-radius: 20px;
+}
+    
+
+#categoryButtons button {
+  font-family: Verdana, sans-serif;
+  font-weight: 500;
+  border-radius: 10px;            
+  margin: 10px; 
+  padding:5px;
+  font-size: 20px;
+}
+
+
+.dailyGoalButton {
+  background-color:#4070C9;
+  color:#0D1930;
+}
+.dailyGoalButton:hover {
+  background-color:#BFCFED;
+    
+}
+
+
+.weeklyGoalButton {
+  background-color:#758FE6;
+  color:0A1433;
+}
+.weeklyGoalButton:hover {
+  background-color:#BBC9F2; 
+}
+
+
+.monthlyGoalButton {
+  background-color:#A2BFF6;
+  color:#051738;
+}
+.monthlyGoalButton:hover {
+  background-color:#B4CCF8;
+}
+
+
+
+.lifetimeGoalButton {
+  background-color:#FFC9B5;
+  color:#3D1000;
+}
+.lifetimeGoalButton:hover {
+  background-color:#FFE1D6; 
+}
+
+
+
+
+
+
+
+
+
+
+#addTaskButton {
+
+  color: #B0A990;
+  padding:10px;
+  border-radius: 10%;
+  width: 25%;
+  font-size: 15px;
+  background-color: #202030;
+}
