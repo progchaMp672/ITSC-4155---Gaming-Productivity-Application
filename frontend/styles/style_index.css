@@ -1,3 +1,99 @@
+    /*
+    COLOR SCHEME HEX CODES:
+      raisin black: #202030
+      English Violet: #39304A
+      Walnut Brown: #635C51
+      Beaver: #958975
+      Celadon(Green): #B4CEB3
+
+    */
+    
+    
+
+    * { box-sizing: border-box; }
+    
+    
+    body {
+      background-color: #202030;
+      color: #B4CEB3;
+      font-family: Arial, sans-serif;
+      flex-direction: column;
+      margin: 0;
+      padding: 0px;
+    }
+
+    header {
+      text-align: center;
+      font-size: 30px;
+    }
+
+    /*=======================
+            NAV BAR CSS
+    =========================*/
+
+    .nav-bar {
+      
+      width: 100%;
+      background-color: #13131d;
+    }
+
+    .nav-bar, .nav-inner {
+      margin: 0 auto;  
+      padding: 10px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav-bar ul {
+      list-style-type: none;
+      margin:0;
+      display: flex;
+      
+    }
+    .nav-bar a {
+      color: #D6FFF6;
+
+    }
+    .nav-bar a:visited, .nav-bar a:hover {
+      color: #D6FFF6
+
+    }
+    
+    /*=======================
+            MAIN
+    =========================*/
+
+
+
+    main {
+      gap: 20px;
+      width: 90%;
+    }
+    .top {
+      display: flex;
+    }
+
+    /*
+    Both borders
+    */
+
+    .boxes {
+      margin:5px;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px #000000;
+    }
+
+    /*
+    SECTION SPECIFIC SPACING FOR UPPER BOXES
+    */  
+    .upper-left, .upper-right {
+      margin-top: 30px;
+    }
+
+    /* Left area */
+    .left {}
 /*
   COLOR SCHEME HEX CODES:
     raisin black: #202030
@@ -235,6 +331,34 @@
       display:flex; 
       flex-direction:column; 
       gap:10px;
+    }
+    .game-area {
+      background: #B4CEB3;
+      color: #202030;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .log {
+      background: #39304A;
+      color: white;
+      font-family: monospace;
+      height: 300px;        
+      padding: 10px;
+      border: 2px solid black;
+
+      /* scrolling */
+      overflow-y: auto;     
+      overflow-x: hidden;
+    }
+
+    .character-display {
+      background-color: #b5cbb0;
+      width: 100%;
+      height: 250px;
+      border-radius: 10px;
   }
   .game-area {
     background: #B4CEB3;
