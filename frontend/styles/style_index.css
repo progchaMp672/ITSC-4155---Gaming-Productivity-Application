@@ -14,10 +14,14 @@
     
     
     body {
+      
       background-color: #202030;
       color: #B4CEB3;
       font-family: Arial, sans-serif;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
       margin: 0;
       padding: 0px;
     }
@@ -294,8 +298,10 @@
 
   main {
     display: flex;
-    gap: 20px;
-    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
     margin: 0 auto;
     padding-bottom: 30px;
     flex: 1;

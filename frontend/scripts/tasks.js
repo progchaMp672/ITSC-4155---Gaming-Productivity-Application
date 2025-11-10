@@ -18,56 +18,53 @@ function updateXPBar() {
     xpBar.style.width = percentage + '%';
 }
 
-// Call this when the page loads
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", () => {
     updateXPBar();
-});
-
-document.addEventListener("DOMContentLoaded", loadTasks);
-
+    loadTasks();
+  });
 
 /* ===============================================================================
                                 LOADING TASK LIST
 ===============================================================================*/
+
+function renderTask(task) {
+    const li = document.createElement("li");
+    li.style.display = "flex";
+    li.style.justifyContent = "space-between";
+    li.style.alignItems = "center";
+    li.style.padding = "10px";
+    li.style.marginBottom = "10px";
+    li.style.borderRadius = "8px";
+    li.style.backgroundColor = task.category.color || "#ddd";
+    li.style.boxShadow = "0 2px 5px rgba(0,0,0,0.1)";
+    li.style.color = "rgba(0,0,0,.7)";
+  
+    const dueDateText = task.due_date
+      ? `<p style="margin: 5px 0 0 0; font-size: 0.8em;">Due: ${new Date(task.due_date).toLocaleDateString()}</p>`
+      : "";
+  
+    li.innerHTML = `
+      <div>
+        <label>
+          <input type="checkbox" ${task.completed ? "checked" : ""} data-id="${task.id}">
+          <strong>${task.title}</strong>
+          <p style="margin: 5px 0 0 0; font-size: 0.8em; font-style: italic;">Category: ${task.category.name}</p>
+        </label>
+        <p style="margin: 5px 0 0 0; font-size: 0.9em;">${task.description || ""}</p>
+        ${dueDateText}
+      </div>
+      <button class="delete-btn" data-id="${task.id}" style="background: none; border: none; font-size: 1.2em; cursor: pointer;">🗑</button>
+    `;
+  
+    taskList.appendChild(li);
+  }
 
 async function loadTasks() {
     const res = await fetch(API_URL);
     const tasks = await res.json();
   
     taskList.innerHTML = "";
-    tasks.forEach(task => {
-      const li = document.createElement("li");
-
-        li.style.display = "flex";
-        li.style.justifyContent = "space-between";
-        li.style.alignItems = "center";
-        li.style.padding = "10px";
-        li.style.marginBottom = "10px";
-        li.style.borderRadius = "8px";
-        li.style.backgroundColor = task.category.color || "#ddd"; // fallback color
-        li.style.boxShadow = "0 2px 5px rgba(0,0,0,0.1)";
-        li.style.color = "rgba(0,0,0,.7)";
-
-        const dueDateText = task.due_date
-            ? `<p style="margin: 5px 0 0 0; font-size: 0.8em;">Due: ${new Date(task.due_date).toLocaleDateString()}</p>`
-            : "";
-
-        li.innerHTML = `
-            <div>
-                <label>
-                    <input type="checkbox" ${task.completed ? "checked" : ""} data-id="${task.id}">
-                    <strong>${task.title}</strong>
-                    <p style="margin: 5px 0 0 0; font-size: 0.8em; font-style: italic;">Category: ${task.category.name}</p>
-                </label>
-                <br>
-
-                <p style="margin: 5px 0 0 0; font-size: 0.9em;">${task.description || ""}</p>
-                ${dueDateText}
-                </div>
-            <button class="delete-btn" data-id="${task.id}" style="background: none; border: none; font-size: 1.2em; cursor: pointer;">🗑</button>
-        `;
-        taskList.appendChild(li);
-    });
+    tasks.forEach(task => renderTask(task));
   }
 
 /* ===============================================================================
@@ -127,12 +124,17 @@ addTaskButton.addEventListener("click", async () => {
         });
     
         if (res.ok) {
-          newTaskTitleInput.value = "";
-          newTaskDescriptionInput.value = "";
-          newTaskDueDateInput.value = "";
-          categoryButtons.forEach(btn => btn.style.outline = "none");
-          selectedCategoryId = null;
-          loadTasks();
+            const createdTask = await res.json();
+          
+            // render it immediately
+            renderTask(createdTask);
+          
+            // then reset inputs
+            newTaskTitleInput.value = "";
+            newTaskDescriptionInput.value = "";
+            newTaskDueDateInput.value = "";
+            categoryButtons.forEach(btn => btn.style.outline = "none");
+            selectedCategoryId = null;
         } else {
           const err = await res.text();
           console.error("Failed to create task:", err);
