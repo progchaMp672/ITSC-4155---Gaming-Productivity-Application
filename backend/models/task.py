@@ -15,7 +15,7 @@ class Task(Base):
     title = Column(String(255))
     description = Column(String(255))
     completed = Column(Boolean, default=False)
-    priority = Column(Enum(PriorityEnum), default=PriorityEnum.medium)
+    #priority = Column(Enum(PriorityEnum), default=PriorityEnum.medium)
     due_date = Column(DateTime)
     completed_at = Column(DateTime)
     points_reward = Column(Integer)
