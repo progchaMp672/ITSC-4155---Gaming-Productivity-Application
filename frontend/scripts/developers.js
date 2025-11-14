@@ -29,12 +29,15 @@ const memberDetails = {
         tech: "HTML, CSS, JavaScript, UI/UX Design"
     },
     member4: {
-        name: "Member 4",
-        role: "Role",
+        name: "Alex Landeros Hernandez",
+        role: "Backend Developer",
         contributions: [
-            "Contribuutions during the project goes here"
+            "Developed the backend API using Python and FastAPI",
+            "Created Use Case Diagram to represent system interactions",
+            "Designed and structured backend architecture using routers, models, and schemas for scalability",
+            "Implemented data handling and business logic for achievement management"
         ],
-        tech: "Java"
+        tech: "Python, FastAPI, Pydantic, API design, System Modeling, MySQL, Javascript, HTML"
     },
     member5: {
         name: "Member 5",

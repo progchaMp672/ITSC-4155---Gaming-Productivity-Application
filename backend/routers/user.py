@@ -57,7 +57,7 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     return {"detail": "User deleted"}
 
 
-# --- 🔐 Login user (UPDATED) ---
+# ---  Login user (UPDATED) ---
 @router.post("/login")
 async def login_user(request: Request, db: Session = Depends(get_db)):
     data = await request.json()
@@ -71,13 +71,13 @@ async def login_user(request: Request, db: Session = Depends(get_db)):
         .first()
     )
 
-    if not user or user.password != password:  # ⚠️ plain-text check (OK for now)
+    if not user or user.password != password:  #  plain-text check
         raise HTTPException(status_code=401, detail="Invalid username/email or password")
 
     return {"message": "Login successful", "user_id": user.id}
 
 
-# --- 👤 Get logged-in user info ---
+# ---  Get logged-in user info ---
 @router.get("/me/{user_id}")
 def get_user_info(user_id: int, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).first()
@@ -92,7 +92,7 @@ def get_user_info(user_id: int, db: Session = Depends(get_db)):
         "points": getattr(user, "points", 0),
     }
 
-# --- 🪙 Update user stats (gold, exp, etc.) ---
+# ---  Update user stats (gold, exp, etc.) ---
 @router.put("/stats/{user_id}")
 def update_user_stats(user_id: int, stats: dict, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).first()
