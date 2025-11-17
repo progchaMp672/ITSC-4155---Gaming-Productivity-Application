@@ -11,6 +11,8 @@ class User(Base):
     password = Column(String(255), nullable=False)
     points = Column(Integer, default=0)
     level = Column(Integer, default=1)
+    gold = Column(Integer, default=0)
+    exp = Column(Integer, default=0)
     created_at = Column(DateTime)
     last_login = Column(DateTime)
 

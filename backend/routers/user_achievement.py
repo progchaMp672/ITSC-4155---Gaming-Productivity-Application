@@ -46,6 +46,7 @@ def get_user_achievements(db: Session = Depends(get_db)):
     return db.query(UserAchievement).all()
 
 #Remove user achievement
+@router.delete("/{user_achievement_id}")
 def delete_user_achievement(user_achievement_id: int, db: Session = Depends(get_db)):
     ua = db.query(UserAchievement).filter(UserAchievement.id == user_achievement_id).first()
     if not ua:

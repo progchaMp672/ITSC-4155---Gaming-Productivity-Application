@@ -17,7 +17,7 @@ form.addEventListener("submit", async (e) => {
     const response = await fetch("http://127.0.0.1:8000/users/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      // ✅ backend accepts this as either email OR username
+      // backend accepts this as either email OR username
       body: JSON.stringify({ email: identifier, password: password })
     });
 
@@ -28,7 +28,7 @@ form.addEventListener("submit", async (e) => {
       return;
     }
 
-    // ✅ Store the user ID in localStorage
+    // Store the user ID in localStorage
     localStorage.setItem("user_id", data.user_id);
 
     message.textContent = "Login successful! Redirecting...";

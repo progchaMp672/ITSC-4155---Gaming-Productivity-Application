@@ -32,22 +32,21 @@ def read_root():
 #New route: serve user info for frontend
 @app.get("/user/{user_id}")
 def get_user_data(user_id: int, db: Session = Depends(get_db)):
-    """
-    Returns user info (username, gold, exp, streak) for display in index.html
-    """
     user = db.query(user_model.User).filter(user_model.User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    # You can adjust field names here based on your actual columns
     return {
-        "username": user.display_name,
-        "gold": user.gold,
-        "exp": user.exp,
-        "streak": user.streak
+        "id": user.id,
+        "username": user.username,
+        "gold": getattr(user, "gold", 0), #user.gold
+        "exp": getattr(user, "exp", 0), #user.exp
+        "points": getattr(user, "points", 0), #user.points
+        "level": getattr(user, "level", 1), #user.level
+        "streak": getattr(user, "streak", 0), #user.streak
     }
 
-# --- routers ---
+#routers inclusion
 app.include_router(user_router.router)
 app.include_router(task_router.router)
 
