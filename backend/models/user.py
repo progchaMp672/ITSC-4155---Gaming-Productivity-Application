@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from backend.database import Base
 
@@ -13,8 +14,10 @@ class User(Base):
     level = Column(Integer, default=1)
     gold = Column(Integer, default=0)
     exp = Column(Integer, default=0)
-    created_at = Column(DateTime)
-    last_login = Column(DateTime)
+
+    #Auto set timestamps
+    created_at = Column(DateTime, server_default=func.now())
+    last_login = Column(DateTime, onupdate=func.now(), nullable=True)
 
     tasks = relationship("Task", back_populates="user")
     streaks = relationship("Streak", back_populates="user")
