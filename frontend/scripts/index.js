@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!response.ok) throw new Error("User not found");
 
     const userData = await response.json();
-
     // Update header
     const statsHeader = document.querySelector(".stats h2");
     if (statsHeader) statsHeader.textContent = `${userData.username || userData.display_name || "Player"} Stats`;

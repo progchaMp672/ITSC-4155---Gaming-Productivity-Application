@@ -153,15 +153,25 @@ taskList.addEventListener("change", async (e) => {
     if (e.target.matches("input[type='checkbox']")) {
       const id = e.target.dataset.id;
       const completed = e.target.checked;
+      
+      try {
+        const res = await fetch(`${API_URL}/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ completed, user_id: 1, title: e.target.parentNode.textContent.trim() })
+        });
   
-      const res = await fetch(`${API_URL}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ completed, user_id: 1, title: e.target.parentNode.textContent.trim() })
-      });
-  
-      if (!res.ok) {
-        alert("Failed to update task");
+        if (!res.ok) {
+          const err = await res.json();
+          console.error("Failed to update task:", err);
+          alert("Failed to update task");
+          return;
+        }
+
+        await refreshUserStats(); // Refresh user stats after task completion
+      } catch (error) {
+        console.error("Error updating task:", error);
+        alert("An error occurred while updating the task");
       }
     }
   });

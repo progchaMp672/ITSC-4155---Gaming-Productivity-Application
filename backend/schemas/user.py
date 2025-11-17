@@ -26,6 +26,8 @@ class UserResponse(UserBase):
     id: int
     points: int
     level: int
+    gold: int
+    exp: int
     created_at: Optional[datetime] = None
     last_login: Optional[datetime] = None
 
