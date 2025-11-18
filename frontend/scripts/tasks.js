@@ -11,10 +11,10 @@ const newTaskDueDateInput = document.getElementById("newTaskDueDateInput");
 
 
 function updateXPBar() {
-    const currentXP = parseInt(document.getElementById('currentXP').textContent);
-    const maxXP = parseInt(document.getElementById('maxXP').textContent);
+    const currentXP = parseInt(document.getElementById('currentXP').textContent || "0", 10);
+    const maxXP = parseInt(document.getElementById('maxXP').textContent || "10", 10);
     const xpBar = document.getElementById('xpBar');
-    const percentage = (currentXP / maxXP) * 100;
+    const percentage = maxXP > 0 ? (currentXP / maxXP) * 100 : 0;
     xpBar.style.width = percentage + '%';
 }
 
@@ -48,7 +48,7 @@ function renderTask(task) {
         <label>
           <input type="checkbox" ${task.completed ? "checked" : ""} data-id="${task.id}">
           <strong>${task.title}</strong>
-          <p style="margin: 5px 0 0 0; font-size: 0.8em; font-style: italic;">Category: ${task.category.name}</p>
+          <p style="margin: 5px 0 0 0; font-size: 0.8em; font-style: italic;">Category: ${task.category && task.category.name} || "Uncategorized"</p>
         </label>
         <p style="margin: 5px 0 0 0; font-size: 0.9em;">${task.description || ""}</p>
         ${dueDateText}
@@ -61,6 +61,10 @@ function renderTask(task) {
 
 async function loadTasks() {
     const res = await fetch(API_URL);
+    if (!res.ok) {
+      console.error("Failed to fetch tasks", await res.text());
+      return;
+    }
     const tasks = await res.json();
   
     taskList.innerHTML = "";
@@ -88,7 +92,7 @@ let selectedCategoryId = null;
 categoryButtons.forEach(button => {
     button.addEventListener("click", () => {
       selectedCategoryId = button.dataset.id;
-      categoryButtons.forEach(btn => btn.style.outline = "none");
+      categoryButtons.forEach((btn) => (btn.style.outline = "none"));
       button.style.outline = "10px solid white"; // highlight selected category
     });
   });
@@ -96,34 +100,62 @@ categoryButtons.forEach(button => {
 addTaskButton.addEventListener("click", async () => {
     const title = newTaskTitleInput.value.trim();
     const description = newTaskDescriptionInput.value.trim();
-    const dueDate = newTaskDueDateInput.value ? new Date(newTaskDueDateInput.value).toISOString() : null;
+    const dueDate = newTaskDueDateInput.value
+        ? new Date(newTaskDueDateInput.value).toISOString()
+        : null;
 
-    if(!title) return alert("Please enter a name for your new task!");
+    const userId = Number(localStorage.getItem("user_id"));
+    if (!userId) {
+        alert("You must be logged in to create tasks!");
+        return;
+    }
+
+    if (!title) return alert("Please enter a name for your new task!");
     if (!selectedCategoryId) return alert("Please select a category!");
-    
-    /*Fix this:
-    Ordering by goal type, then by due date
-    Make scrollable
-    Make only visible when logged in
-
-     */
 
     const newTask = {
         title,
         description,
         due_date: dueDate,
-        user_id: 1,
-        category_id: parseInt(selectedCategoryId)
+        user_id: userId,
+        category_id: parseInt(selectedCategoryId, 10),
     };
-   
+
     try {
         const res = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newTask)
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newTask),
         });
+
+        if (!res.ok) {
+            const err = await res.text();
+            console.error("Failed to create task:", err);
+            alert("Failed to create task: " + err);
+            return;
+        }
+
+        const createdTask = await res.json();
+
+        renderTask(createdTask);
+        addToLog(`New task added: ${createdTask.title}`);
+        showNotification("Task Created Successfully!");
+
+        // reset form
+        newTaskTitleInput.value = "";
+        newTaskDescriptionInput.value = "";
+        newTaskDueDateInput.value = "";
+        categoryButtons.forEach((btn) => (btn.style.outline = "none"));
+        selectedCategoryId = null;
+
+    } catch (error) {
+        console.error("Error creating task:", error);
+        alert("An error occurred: " + error.message);
+    }
+});
+
     
-        if (res.ok) {
+        /*if (res.ok) {
             const createdTask = await res.json();
           
             // render it immediately
@@ -145,6 +177,7 @@ addTaskButton.addEventListener("click", async () => {
         alert("An error occurred: "+ error.message);
       }
     });
+    */
 
 /* ===============================================================================
                                 COMPLETE TASK FUNCTION  
@@ -158,17 +191,47 @@ taskList.addEventListener("change", async (e) => {
         const res = await fetch(`${API_URL}/${id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ completed, user_id: 1, title: e.target.parentNode.textContent.trim() })
+          body: JSON.stringify({ completed }),
         });
   
         if (!res.ok) {
           const err = await res.json();
           console.error("Failed to update task:", err);
           alert("Failed to update task");
+          e.target.checked = !completed; // revert checkbox
           return;
         }
 
-        await refreshUserStats(); // Refresh user stats after task completion
+        if (completed) {
+          const label = e.target.closest("label");
+          const li = e.target.closest("li");
+          const taskText = (label && label.textContent.trim()) || "Task";
+
+          if(label) {
+            label.style.textDecoration = "line-through";
+            label.style.opacity = "0.6";
+          }
+          addToLog(`You completed: ${taskText}`);
+          addToLogTemp("You gain XP and Gold!");
+          showNotification("Task Completed! EXP and Gold awarded!");
+          createCelebrationParticles();
+
+          e.target.disabled = true;
+
+          setTimeout(() => {
+            if (!li) return;
+            li.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+            li.style.opacity = "0";
+            li.style.transform = "translateX(50px)";
+            setTimeout(() => li.remove(), 500);
+          }, 2000);
+        }
+
+        if(window.refreshUserStats) {
+          await window.refreshUserStats();
+        } else {
+          updateXPBar();
+        }
       } catch (error) {
         console.error("Error updating task:", error);
         alert("An error occurred while updating the task");
@@ -183,25 +246,23 @@ taskList.addEventListener("change", async (e) => {
 taskList.addEventListener("click", async (e) => {
     if (e.target.matches(".delete-btn")) {
       const id = e.target.dataset.id;
-      const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-      if (res.ok) {
-        loadTasks();
-      } else {
-        alert("Failed to delete task");
+      if(!confirm("Are you sure you want to delete this task?")) return;
+
+      try {
+        const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+        if (res.ok) {
+          loadTasks();
+          addToLog("Task deleted.");
+        } else {
+          alert("Failed to delete task");
+        }
+      } catch (error) {
+        console.error("Error deleting task:", error);
+        alert("An error occurred while deleting the task");
       }
     }
   });
-  
 
-
-
-
-
-
-
-
-
-  
   
 /* REMOVED FOR MERGING 
 // Game data
@@ -342,14 +403,16 @@ function checkAchievements() {
 
 // Add message to the log
 function addToLog(message) {
-    let logSection = document.querySelector('.log article');
-    let newMessage = document.createElement('p');
+    const logSection = document.querySelector('.log article');
+    if (!logSection) return;
+    const newMessage = document.createElement('p');
     newMessage.textContent = message;
     logSection.appendChild(newMessage);
 
-    // Auto-scroll to bottom
-    let logBox = document.querySelector('.log');
-    logBox.scrollTop = logBox.scrollHeight;
+    const logBox = document.querySelector('.log');
+    if (logBox) {
+        logBox.scrollTop = logBox.scrollHeight;
+    }
 }
 
 // Add a TEMPORARY message to the log that auto-removes (default 2.5s)
@@ -460,4 +523,3 @@ function createCelebrationParticles() {
         }, i * 100);
     }
 }
-
