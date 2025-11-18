@@ -60,7 +60,7 @@ def update_user_streak(db: Session, user_id: int, streak_type: str = "daily_task
     return streak
 
 def check_task_achievements(db: Session, user_id: int):
-    # Example achievement: Complete 5 tasks
+    # Count completed tasks for the user and check for achievements
     completed_count = (
         db.query(Task)
         .filter(Task.user_id == user_id, Task.completed == True)
@@ -134,13 +134,14 @@ def update_task(task_id: int, task_data: TaskUpdate, db: Session = Depends(get_d
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")
     
-    was_completed = task.completed
+    was_completed = bool(task.completed)
 
     for key, value in task_data.model_dump(exclude_unset=True).items():
         setattr(task, key, value)
 
     if not was_completed and task.completed:
         task.completed_at = datetime.utcnow()
+
         user = db.query(User).filter(User.id == task.user_id).first()
         if user:
             base_xp = 5
@@ -150,6 +151,9 @@ def update_task(task_id: int, task_data: TaskUpdate, db: Session = Depends(get_d
             user.exp = (user.exp or 0) + xp_gain
             user.gold = (user.gold or 0) + gold_gain
             apply_level_up(user)
+
+            update_user_streak(db, user.id, streak_type="daily_tasks")
+            check_task_achievements(db, user)
     db.commit()
     db.refresh(task)
     return task
