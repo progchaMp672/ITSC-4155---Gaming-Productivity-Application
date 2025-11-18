@@ -59,11 +59,11 @@ def update_user_streak(db: Session, user_id: int, streak_type: str = "daily_task
     streak.last_activity = today
     return streak
 
-def check_task_achievements(db: Session, user_id: int):
+def check_task_achievements(db: Session, user: User):
     # Count completed tasks for the user and check for achievements
     completed_count = (
         db.query(Task)
-        .filter(Task.user_id == user_id, Task.completed == True)
+        .filter(Task.user_id == user.id, Task.completed == True)
         .count()
     )
 
@@ -87,14 +87,14 @@ def check_task_achievements(db: Session, user_id: int):
         already_earned = (
             db.query(UserAchievement)
             .filter(
-                UserAchievement.user_id == user_id,
+                UserAchievement.user_id == user.id,
                 UserAchievement.achievement_id == achievement.id,
             )
             .first()
         )
         if not already_earned:
             user_achievement = UserAchievement(
-                user_id=user_id,
+                user_id=user.id,
                 achievement_id=achievement.id,
                 earned_at=datetime.utcnow(),
             )

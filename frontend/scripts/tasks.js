@@ -212,9 +212,10 @@ taskList.addEventListener("change", async (e) => {
             label.style.opacity = "0.6";
           }
           addToLog(`You completed: ${taskText}`);
-          addToLogTemp("You gain XP and Gold!");
+          addToLogTemp("You gained 5 gold and 7 EXP!");
           showNotification("Task Completed! EXP and Gold awarded!");
           createCelebrationParticles();
+          showXPPopup(`+7 XP, +5 Gold`);
 
           e.target.disabled = true;
 
@@ -392,12 +393,16 @@ function checkLevelUp() {
 // Check for achievements
 function checkAchievements() {
     if (tasksCompleted === 5) {
-        document.getElementById('recentAchievement').textContent = 'Task Master: Complete 5 tasks';
-        addToLog('🏆 Achievement: Task Master!');
+        document.getElementById('recentAchievement').textContent = 'Task Rookie: Complete 5 tasks';
+        addToLog('🏆 Achievement: Task Rookie!');
     }
     if (tasksCompleted === 10) {
-        document.getElementById('recentAchievement').textContent = 'Task Veteran: Complete 10 tasks';
-        addToLog('🏆 Achievement: Task Veteran!');
+        document.getElementById('recentAchievement').textContent = 'Task Pro: Complete 10 tasks';
+        addToLog('🏆 Achievement: Task Pro!');
+    }
+    if (tasksCompleted === 20) {
+        document.getElementById('recentAchievement').textContent = 'Task Master: Complete 20 tasks';
+        addToLog('🏆 Achievement: Task Master!');
     }
 }
 
@@ -523,3 +528,30 @@ function createCelebrationParticles() {
         }, i * 100);
     }
 }
+
+function showXPPopup(text = "+7 XP, +5 Gold") {
+  const statsBox = document.querySelector(".stats");
+  if (!statsBox) return;
+
+  const rect = statsBox.getBoundingClientRect();
+  const popup = document.createElement("div");
+  popup.textContent = text;
+  popup.style.cssText = `
+    position: fixed;
+    left: ${rect.left + rect.width / 2}px;
+    top: ${rect.top - 10}px;
+    transform: translateX(-50%);
+    padding: 8px 14px;
+    background: rgba(106, 190, 255, 0.95);
+    color: #0b1020;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 10001;
+    pointer-events: none;
+    animation: xpFloat 1.2s ease-out forwards;
+  `;
+  document.body.appendChild(popup);
+  setTimeout(() => popup.remove(), 1200);
+}
+
