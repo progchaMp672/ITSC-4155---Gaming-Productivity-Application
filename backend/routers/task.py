@@ -114,8 +114,12 @@ def create_task(task: TaskCreate, db: Session = Depends(get_db)):
 
 # Reads all tasks
 @router.get("/", response_model=list[TaskResponse])
-def get_tasks(db: Session = Depends(get_db)):
-    return db.query(Task).all()
+def get_tasks(user_id: int | None = None, db: Session = Depends(get_db)):
+    query = db.query(Task)
+    if user_id is not None:
+        query = query.filter(Task.user_id == user_id)
+    return query.all()
+
 
 # Reads one task
 @router.get("/{task_id}", response_model=TaskResponse)

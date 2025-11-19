@@ -78,18 +78,18 @@ async function loadLatestAchievement(userId) {
   if (!achievementEl || !achievementListEl) return;
 
   try {
-    const res = await fetch(`${API_BASE}/tasks`);
+    const res = await fetch(`${API_BASE}/tasks?user_id=${userId}`);
     if (!res.ok) {
       console.error("Failed to load tasks for achievements:", await res.text());
       achievementEl.textContent = "Achievements unavailable";
       return;
     }
 
-    const allTasks = await res.json();
+    const tasks = await res.json();
 
     // Count how many tasks THIS user has completed
-    const completedCount = allTasks.filter(
-      (t) => t.user_id === Number(userId) && t.completed
+    const completedCount = tasks.filter(
+      (t) => t.completed
     ).length;
 
     // Our milestones
@@ -133,15 +133,15 @@ async function updateTaskCompletedCount(userId) {
   if (!el) return;
 
   try {
-    const res = await fetch(`${API_BASE}/tasks`);
+    const res = await fetch(`${API_BASE}/tasks?user_id=${userId}`);
     if (!res.ok) {
-      console.error("Failed to fetch tasks for completion count");
+      console.error("Failed to fetch tasks for completion count", await res.text());
       return;
     }
 
     const tasks = await res.json();
     const completed = tasks.filter(
-      (t) => t.user_id === Number(userId) && t.completed
+      (t) => t.completed
     ).length;
 
     el.textContent = completed;
@@ -194,7 +194,15 @@ async function claimDailyBonus() {
   }
 }
 
+function initRollsDisplay() {
+  const userId = Number(localStorage.getItem("user_id"));
+  const rollCountEl = document.getElementById("rollCount");
+  if (!userId || !rollCountEl) return;
 
+  const rollKey = `rolls_user_${userId}`;
+  const rolls = Number(localStorage.getItem(rollKey)) || 0;
+  rollCountEl.textContent = rolls;
+}
 
 
 
@@ -222,6 +230,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (err) {
     console.error("Error loading user data:", err);
   }
+
+  initRollsDisplay();
 
   const dailyBonusButton = document.getElementById("dailyBonusButton");
   if (dailyBonusButton) {

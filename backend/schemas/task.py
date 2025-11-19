@@ -11,10 +11,11 @@ class TaskBase(BaseModel):
    #priority: Optional[str] = "medium"
     due_date: Optional[datetime] = None
     points_reward: Optional[int] = 0
+    user_id: int
     category_id: Optional[int] = None
 
 class TaskCreate(TaskBase):
-    user_id: int
+    pass
 
 class TaskUpdate(BaseModel):
     title: Optional[str] = None

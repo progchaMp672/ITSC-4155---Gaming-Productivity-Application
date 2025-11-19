@@ -60,16 +60,23 @@ function renderTask(task) {
   }
 
 async function loadTasks() {
-    const res = await fetch(API_URL);
-    if (!res.ok) {
-      console.error("Failed to fetch tasks", await res.text());
-      return;
-    }
-    const tasks = await res.json();
-  
+  const userId = Number(localStorage.getItem("user_id"));
+  if (!userId) {
     taskList.innerHTML = "";
-    tasks.forEach(task => renderTask(task));
+    return;
   }
+
+  const res = await fetch(`${API_URL}?user_id=${userId}`);
+  if (!res.ok) {
+    console.error("Failed to fetch tasks", await res.text());
+    return;
+  }
+
+  const tasks = await res.json();
+  taskList.innerHTML = "";
+  tasks.forEach(task => renderTask(task));
+}
+
 
 /* ===============================================================================
                                 ADD NEW TASK FUNCTION
@@ -224,9 +231,11 @@ taskList.addEventListener("change", async (e) => {
         await window.updateTaskCompletedCount(userId);
       }
 
-      let numberOfRolls = Number(localStorage.getItem("rolls")) || 0;
+      const rollKey = `rolls_user_${userId}`;
+      let numberOfRolls = Number(localStorage.getItem(rollKey)) || 0;
       numberOfRolls += 1;
-      localStorage.setItem("rolls", numberOfRolls);
+      localStorage.setItem(rollKey, numberOfRolls);
+
       const rollCountEl = document.getElementById("rollCount");
       if (rollCountEl) rollCountEl.textContent = numberOfRolls;
       showRollPopup("+1 Roll");

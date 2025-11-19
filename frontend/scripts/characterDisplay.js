@@ -4,31 +4,48 @@ const rollButton = document.getElementById('rollButton');
 // Character starts on space 1
 let currentSpace = 1;
 
-function updateRollUI() {
-  const numberOfRolls = Number(localStorage.getItem('rolls')) || 0;
-  const rollCountEl = document.getElementById('rollCount');
-  if (rollCountEl) rollCountEl.textContent = numberOfRolls;
+function getRollKey() {
+  const userId = localStorage.getItem('user_id');
+  return userId ? `rolls_user_${userId}` : null;
 }
-rollButton.addEventListener('click', () => {
 
-  let rolls = Number(localStorage.getItem('rolls')) || 0;
+function getCurrentRolls() {
+  const key = getRollKey();
+  if (!key) return 0;
+  return Number(localStorage.getItem(key)) || 0;
+}
+
+function setCurrentRolls(value) {
+  const key = getRollKey();
+  if (!key) return;
+
+  localStorage.setItem(key, String(value));
+
+  const rollCountEl = document.getElementById('rollCount');
+  if (rollCountEl) rollCountEl.textContent = value;
+}
+
+function updateRollUI() {
+  setCurrentRolls(getCurrentRolls());
+}
+
+rollButton.addEventListener('click', () => {
+  let rolls = getCurrentRolls();
 
   if (rolls <= 0) {
     alert("No rolls available! Complete more tasks to earn rolls.");
     return;
   }
-
   rolls -= 1;
-  localStorage.setItem('rolls', rolls);
-  updateRollUI();
+  setCurrentRolls(rolls);
 
-  if(typeof showRollPopup === 'function') {
-    showRollPopup("-1 Roll");
-  }
-
-  // Simulate a die roll (1–6)
   const roll = Math.floor(Math.random() * 6) + 1;
   alert(`You rolled a ${roll}!`);
+
+  if (rolls <= 0) {
+    alert("No rolls available! Complete more tasks to earn rolls.");
+    return;
+  }
 
   // For testing: only 2 spaces exist
   if (currentSpace === 1 && roll >= 3) {
