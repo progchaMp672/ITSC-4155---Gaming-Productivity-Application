@@ -6,7 +6,7 @@ from backend.routers import user as user_router, task as task_router, achievemen
 from backend.models import (achievement, category, reward, streak, task as
 task_model, user as user_model, user_achievement, user_reward)
 
-from backend.seed import seed_categories
+from backend.seed import seed_categories, seed_achievements
 
 app = FastAPI(title="Accountability Hero API")
 
@@ -24,6 +24,7 @@ Base.metadata.create_all(bind=engine)
 
 with next(get_db()) as db:
     seed_categories(db)
+    seed_achievements(db)
 
 @app.get("/")
 def read_root():

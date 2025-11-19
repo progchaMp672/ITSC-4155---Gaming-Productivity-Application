@@ -48,7 +48,7 @@ function renderTask(task) {
         <label>
           <input type="checkbox" ${task.completed ? "checked" : ""} data-id="${task.id}">
           <strong>${task.title}</strong>
-          <p style="margin: 5px 0 0 0; font-size: 0.8em; font-style: italic;">Category: ${task.category && task.category.name} || "Uncategorized"</p>
+          <p style="margin: 5px 0 0 0; font-size: 0.8em; font-style: italic;">Category: ${task.category ? task.category.name : "Uncategorized"}</p>
         </label>
         <p style="margin: 5px 0 0 0; font-size: 0.9em;">${task.description || ""}</p>
         ${dueDateText}
@@ -183,62 +183,89 @@ addTaskButton.addEventListener("click", async () => {
                                 COMPLETE TASK FUNCTION  
 ===============================================================================*/
 taskList.addEventListener("change", async (e) => {
-    if (e.target.matches("input[type='checkbox']")) {
-      const id = e.target.dataset.id;
-      const completed = e.target.checked;
-      
-      try {
-        const res = await fetch(`${API_URL}/${id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ completed }),
-        });
-  
-        if (!res.ok) {
-          const err = await res.json();
-          console.error("Failed to update task:", err);
-          alert("Failed to update task");
-          e.target.checked = !completed; // revert checkbox
-          return;
-        }
+  if (!e.target.matches("input[type='checkbox']")) return;
 
-        if (completed) {
-          const label = e.target.closest("label");
-          const li = e.target.closest("li");
-          const taskText = (label && label.textContent.trim()) || "Task";
+  const id = e.target.dataset.id;
+  const completed = e.target.checked;
 
-          if(label) {
-            label.style.textDecoration = "line-through";
-            label.style.opacity = "0.6";
-          }
-          addToLog(`You completed: ${taskText}`);
-          addToLogTemp("You gained 5 gold and 7 EXP!");
-          showNotification("Task Completed! EXP and Gold awarded!");
-          createCelebrationParticles();
-          showXPPopup(`+7 XP, +5 Gold`);
+  try {
+    const res = await fetch(`${API_URL}/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ completed }),
+    });
 
-          e.target.disabled = true;
+    if (!res.ok) {
+      const err = await res.json();
+      console.error("Failed to update task:", err);
+      alert("Failed to update task");
+      e.target.checked = !completed; // revert checkbox
+      return;
+    }
 
-          setTimeout(() => {
-            if (!li) return;
-            li.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-            li.style.opacity = "0";
-            li.style.transform = "translateX(50px)";
-            setTimeout(() => li.remove(), 500);
-          }, 2000);
-        }
+    if (completed) {
+      const label = e.target.closest("label");
+      const li = e.target.closest("li");
+      const taskText = (label && label.textContent.trim()) || "Task";
 
-        if(window.refreshUserStats) {
-          await window.refreshUserStats();
-        } else {
-          updateXPBar();
-        }
-      } catch (error) {
-        console.error("Error updating task:", error);
-        alert("An error occurred while updating the task");
+      if (label) {
+        label.style.textDecoration = "line-through";
+        label.style.opacity = "0.6";
+      }
+
+      addToLog(`You completed: ${taskText}`);
+      addToLogTemp("You gained 5 gold and 7 EXP!");
+      showNotification("Task Completed! EXP and Gold awarded!");
+      createCelebrationParticles();
+      showXPPopup(`+7 XP, +5 Gold`);
+
+      const userId = Number(localStorage.getItem("user_id"));
+      if (window.updateTaskCompletedCount) {
+        await window.updateTaskCompletedCount(userId);
+      }
+
+      let numberOfRolls = Number(localStorage.getItem("rolls")) || 0;
+      numberOfRolls += 1;
+      localStorage.setItem("rolls", numberOfRolls);
+      const rollCountEl = document.getElementById("rollCount");
+      if (rollCountEl) rollCountEl.textContent = numberOfRolls;
+      showRollPopup("+1 Roll");
+
+      // Prevent double-counting this task
+      e.target.disabled = true;
+
+      // Fade out and remove the task after a short delay
+      setTimeout(() => {
+        if (!li) return;
+        li.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+        li.style.opacity = "0";
+        li.style.transform = "translateX(50px)";
+        setTimeout(() => li.remove(), 500);
+      }, 2000);
+    }
+
+    // Refresh core stats from backend
+    if (window.refreshUserStats) {
+      await window.refreshUserStats();
+    } else {
+      updateXPBar();
+    }
+
+    // Refresh achievements + streak from backend so UI updates immediately
+    const userId = Number(localStorage.getItem("user_id"));
+    if (userId) {
+      if (window.loadLatestAchievement) {
+        await window.loadLatestAchievement(userId);
+      }
+      if (window.loadUserStreak) {
+        await window.loadUserStreak(userId);
       }
     }
-  });
+  } catch (error) {
+    console.error("Error updating task:", error);
+    alert("An error occurred while updating the task");
+  }
+});
 
   /* ===============================================================================
                                 DELETE TASK FUNCTION  
@@ -440,45 +467,6 @@ function addToLogTemp(message, ms = 2500) {
     }, ms);
 }
 
-/* REMOVED FOR MERGING --> I have an addTask button
-
-// Add new task when button clicked
-function setupAddTaskButton() {
-    let addButton = document.getElementById('addTaskButton');
-    let input = document.getElementById('newTaskInput');
-
-    if (!addButton || !input) return;
-
-    addButton.addEventListener('click', function() {
-        let taskText = input.value.trim();
-
-        if (taskText !== '') {
-            // Create new task
-            let taskList = document.querySelector('.tasks ul');
-            let newTask = document.createElement('li');
-            let label = document.createElement('label');
-            let checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-
-            label.appendChild(checkbox);
-            label.appendChild(document.createTextNode(' ' + taskText));
-            newTask.appendChild(label);
-            taskList.appendChild(newTask);
-
-            // Clear input
-            input.value = '';
-            addToLog('New task added: ' + taskText);
-        }
-    });
-    
-    */
-
-    // Task when Enter key is pressed
-    input.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            addButton.click();
-        }
-    });
 
 // Show notification toast message
 function showNotification(message) {
@@ -553,5 +541,32 @@ function showXPPopup(text = "+7 XP, +5 Gold") {
   `;
   document.body.appendChild(popup);
   setTimeout(() => popup.remove(), 1200);
+}
+
+function showRollPopup(text = "+1 Roll") {
+  const rollBtn = document.getElementById("rollButton");
+  if (!rollBtn) return;
+
+  const rect = rollBtn.getBoundingClientRect();
+  const popup = document.createElement("div");
+  popup.textContent = text;
+  popup.style.cssText = `
+    position: fixed;
+    left: ${rect.left + rect.width / 2}px;
+    top: ${rect.top - 10}px;
+    transform: translateX(-50%);
+    padding: 6px 12px;
+    background: rgba(255, 215, 0, 0.95);
+    color: #3b2a00;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 10001;
+    pointer-events: none;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    animation: xpFloat 1.1s ease-out forwards;
+  `;
+  document.body.appendChild(popup);
+  setTimeout(() => popup.remove(), 1100);
 }
 

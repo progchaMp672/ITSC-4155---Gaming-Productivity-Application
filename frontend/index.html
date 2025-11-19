@@ -22,6 +22,21 @@
         transform: translate(-50%, -30px);
       }
     }
+    #achievementList {
+      list-style: none;
+      padding-left: 0;
+      margin: 0.5rem 0 0;
+      font-size: 0.9em;
+    }
+
+    #achievementList li {
+      margin: 2px 0;
+    }
+
+    #achievementList li.achieved {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
   </style>
 </head>
 <body>
@@ -137,14 +152,6 @@
 
         
           <p id="rollCounter">🎲 Rolls Available: <span id="rollCount">0</span></p>
-        <div class ="task-list-container">
-          <ul id="taskList">
-            <li><label><input type="checkbox"> Exercise for 30 minutes</label></li>
-            <li><label><input type="checkbox"> Get groceries</label></li>
-            <li><label><input type="checkbox"> Study for 30 minutes</label></li>
-            <li><label><input type="checkbox"> Read 15 pages of book</label></li>
-          </ul>
-        </div>
           
       </section>
 
@@ -160,14 +167,20 @@
         </div>
         <div class="streak-counter">
             <span class="fire-icon">🔥</span>
-            <span>Streak: <span id="streakCount">3</span> days</span>
+            <span>Streak: <span id="streakCount"></span> day(s)</span>
         </div>
+        <p><strong>Tasks Completed:</strong> <span id="taskCompletedCount">0</span></p>
         <hr>
         <p><strong>LOGIN BONUS!</strong></p>
         <p>+50 XP Daily Bonus Claimed!</p>
         <hr>
         <p><strong>ACHIEVEMENTS</strong></p>
-        <p id="recentAchievement">Task Master: Complete 5 tasks</p>
+        <ul id="achievementList">
+          <li data-name="Task Rookie">Task Rookie: Complete 5 tasks</li>
+          <li data-name="Task Pro">Task Pro: Complete 10 tasks</li>
+          <li data-name="Task Master">Task Master: Complete 20 tasks</li>
+        </ul>
+        <p id="recentAchievement">No achievements yet!</p>
       </section>
     </section>
 

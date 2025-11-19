@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from datetime import datetime, date, timedelta
+from datetime import datetime, date, timedelta, timezone
 from backend.database import get_db
 from backend.models.user import User
 from backend.models.task import Task
@@ -13,14 +13,14 @@ from backend.schemas.task import TaskCreate, TaskResponse, TaskUpdate
 router = APIRouter(prefix="/tasks", tags=["Tasks"])
 
 def apply_level_up(user: User):
-    exp_needed = 10 * user.level
 
     if user.exp is None:
         user.exp = 0
 
     if user.level is None:
         user.level = 1
-
+    
+    exp_needed = 10 * user.level
     # Check if the user has enough experience to level up
     if user.exp >= exp_needed:
         user.level += 1
@@ -67,38 +67,36 @@ def check_task_achievements(db: Session, user: User):
         .count()
     )
 
-    achievements_to_check = []
-    if completed_count >= 5:
-        achievements_to_check.append("Task Rookie")
-    if completed_count >= 10:
-        achievements_to_check.append("Task Pro")
-    if completed_count >= 20:
-        achievements_to_check.append("Task Master")
+    milestones = [
+        ("Task Rookie", 5),
+        ("Task Pro", 10),
+        ("Task Master", 20),
+    ]
 
-    for name in achievements_to_check:
-        achievement = (
-            db.query(Achievement)
-            .filter(Achievement.name == name)
-            .first()
-        )
-        if not achievement:
-            continue
+    for name, count in milestones:
+        if completed_count >= count:
+            achievement = (
+                db.query(Achievement).filter(Achievement.name == name).first()
+            )
+            if not achievement:
+                continue
 
-        already_earned = (
-            db.query(UserAchievement)
-            .filter(
-                UserAchievement.user_id == user.id,
-                UserAchievement.achievement_id == achievement.id,
+            already_earned = (
+                db.query(UserAchievement)
+                .filter(
+                    UserAchievement.user_id == user.id,
+                    UserAchievement.achievement_id == achievement.id,
+                )
+                .first()
             )
-            .first()
-        )
-        if not already_earned:
-            user_achievement = UserAchievement(
-                user_id=user.id,
-                achievement_id=achievement.id,
-                earned_at=datetime.utcnow(),
-            )
-            db.add(user_achievement)
+
+            if not already_earned:
+                user_achievement = UserAchievement(
+                    user_id=user.id,
+                    achievement_id=achievement.id,
+                    earned_at=datetime.now(timezone.utc)
+                )
+                db.add(user_achievement)
 
 # Creates a task
 @router.post("/", response_model=TaskResponse)
@@ -140,7 +138,7 @@ def update_task(task_id: int, task_data: TaskUpdate, db: Session = Depends(get_d
         setattr(task, key, value)
 
     if not was_completed and task.completed:
-        task.completed_at = datetime.utcnow()
+        task.completed_at = datetime.now(timezone.utc)
 
         user = db.query(User).filter(User.id == task.user_id).first()
         if user:

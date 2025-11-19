@@ -4,7 +4,28 @@ const rollButton = document.getElementById('rollButton');
 // Character starts on space 1
 let currentSpace = 1;
 
+function updateRollUI() {
+  const numberOfRolls = Number(localStorage.getItem('rolls')) || 0;
+  const rollCountEl = document.getElementById('rollCount');
+  if (rollCountEl) rollCountEl.textContent = numberOfRolls;
+}
 rollButton.addEventListener('click', () => {
+
+  let rolls = Number(localStorage.getItem('rolls')) || 0;
+
+  if (rolls <= 0) {
+    alert("No rolls available! Complete more tasks to earn rolls.");
+    return;
+  }
+
+  rolls -= 1;
+  localStorage.setItem('rolls', rolls);
+  updateRollUI();
+
+  if(typeof showRollPopup === 'function') {
+    showRollPopup("-1 Roll");
+  }
+
   // Simulate a die roll (1–6)
   const roll = Math.floor(Math.random() * 6) + 1;
   alert(`You rolled a ${roll}!`);
@@ -35,4 +56,8 @@ function moveToSpace(spaceNumber) {
 }
 
 // Initialize on space 1 after DOM is loaded
-document.addEventListener("DOMContentLoaded", () => moveToSpace(1));
+document.addEventListener("DOMContentLoaded", () => {
+  moveToSpace(1);
+  updateRollUI();
+});
+
