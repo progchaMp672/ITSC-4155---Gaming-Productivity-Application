@@ -38,7 +38,7 @@ function renderTask(task) {
     li.style.backgroundColor = task.category.color || "#ddd";
     li.style.boxShadow = "0 2px 5px rgba(0,0,0,0.1)";
     li.style.color = "rgba(0,0,0,.7)";
-  
+  /*
     const dueDateText = task.due_date
       ? `<p style="margin: 5px 0 0 0; font-size: 0.8em;">Due: ${new Date(task.due_date).toLocaleDateString()}</p>`
       : "";
@@ -55,6 +55,56 @@ function renderTask(task) {
       </div>
       <button class="delete-btn" data-id="${task.id}" style="background: none; border: none; font-size: 1.2em; cursor: pointer;">🗑</button>
     `;
+*/
+    const wrapper = document.createElement("div");
+
+    const label = document.createElement("label");
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.dataset.id = task.id;
+    checkbox.checked = !!task.completed;
+
+    const titleStrong = document.createElement("strong");
+    titleStrong.textContent = task.title; // SAFE
+
+    const categoryP = document.createElement("p");
+    categoryP.style.margin = "5px 0 0 0";
+    categoryP.style.fontSize = "0.8em";
+    categoryP.style.fontStyle = "italic";
+    categoryP.textContent =
+      "Category: " + (task.category ? task.category.name : "Uncategorized");
+
+    const descP = document.createElement("p");
+    descP.style.margin = "5px 0 0 0";
+    descP.style.fontSize = "0.9em";
+    descP.textContent = task.description || "";
+
+    label.appendChild(checkbox);
+    label.appendChild(titleStrong);
+    label.appendChild(categoryP);
+
+    wrapper.appendChild(label);
+    wrapper.appendChild(descP);
+
+    if (task.due_date) {
+      const dueP = document.createElement("p");
+      dueP.style.margin = "5px 0 0 0";
+      dueP.style.fontSize = "0.8em";
+      dueP.textContent = "Due: " + new Date(task.due_date).toLocaleDateString();
+      wrapper.appendChild(dueP);
+    }
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "delete-btn";
+    deleteBtn.dataset.id = task.id;
+    deleteBtn.style.background = "none";
+    deleteBtn.style.border = "none";
+    deleteBtn.style.fontSize = "1.2em";
+    deleteBtn.style.cursor = "pointer";
+    deleteBtn.textContent = "🗑";
+
+    li.appendChild(wrapper);
+    li.appendChild(deleteBtn);
   
     taskList.appendChild(li);
   }
