@@ -150,6 +150,51 @@ async function updateTaskCompletedCount(userId) {
   }
 }
 
+async function claimDailyBonus() {
+  const userId = localStorage.getItem("user_id");
+  if (!userId) return;
+
+  const btn = document.getElementById("dailyBonusButton");
+  const msgEl = document.getElementById("dailyBonusMessage");
+
+  try {
+    if (btn) btn.disabled = true;
+
+    const res = await fetch(`${API_BASE}/users/${userId}/daily-bonus`, {
+      method: "POST",
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      console.error("Failed to claim bonus:", text);
+
+      //If it has been claimed, backend sends error 400
+      if (res.status === 400 && msgEl) {
+        msgEl.textContent = "Daily bonus already claimed today.";
+      } else if (msgEl) {
+        msgEl.textContent = "Could not claim bonus.";
+      }
+
+      return;
+    }
+
+    const data = await res.json();
+
+    if (msgEl) {
+      msgEl.textContent = "Daily bonus claimed! +20 XP";
+    }
+
+    //Pulls fresh stats so XP bar + level update
+    if (window.refreshUserStats) {
+      await window.refreshUserStats();
+    }
+  } catch (err) {
+    console.error("Error claiming daily bonus:", err);
+    if (msgEl) msgEl.textContent = "Error claiming bonus.";
+  }
+}
+
+
 
 
 
@@ -176,5 +221,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     ]);
   } catch (err) {
     console.error("Error loading user data:", err);
+  }
+
+  const dailyBonusButton = document.getElementById("dailyBonusButton");
+  if (dailyBonusButton) {
+    dailyBonusButton.addEventListener("click", claimDailyBonus);
   }
 });

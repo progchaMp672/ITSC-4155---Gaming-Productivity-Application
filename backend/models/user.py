@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Date
 from sqlalchemy.sql import func
+from datetime import datetime, date
 from sqlalchemy.orm import relationship
 from backend.database import Base
 
@@ -14,6 +15,8 @@ class User(Base):
     level = Column(Integer, default=1)
     gold = Column(Integer, default=0)
     exp = Column(Integer, default=0)
+
+    last_daily_bonus = Column(Date, nullable=True)
 
     #Auto set timestamps
     created_at = Column(DateTime, server_default=func.now())
