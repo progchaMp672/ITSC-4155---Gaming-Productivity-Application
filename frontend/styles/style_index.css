@@ -519,6 +519,24 @@
     border: 3px solid #5a7d5a;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+
+    background-image:
+      url("../images/map/Layer_0000_9.png"),
+      url("../images/map/Layer_0003_6.png"),
+      url("../images/map/Layer_0001_8.png"),
+      url("../images/map/Layer_0002_7.png"),
+      url("../images/map/Layer_0004_Lights.png"),
+      url("../images/map/Layer_0005_5.png"),
+      url("../images/map/Layer_0006_4.png"),
+      url("../images/map/Layer_0007_Lights.png"),
+      url("../images/map/Layer_0008_3.png"),
+      url("../images/map/Layer_0009_2.png"),
+      url("../images/map/Layer_0010_1.png"),
+      url("../images/map/Layer_0011_0.png");
+
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   .space {
