@@ -13,11 +13,16 @@ const memberDetails = {
     },
     member2: {
         name: "Member 2",
-        role: "Role",
+        role: "Frontend/Backend Developer",
         contributions: [
-            "Contribuutions during the project goes here"
+            "Developed intial UI design concept", 
+            "Implemented task manipulation logic using JavaScript",
+            "Implemented task creation mechanic" ,
+            "Implemented task completion mechanic", 
+            "Connected task manipulation JavaScript to the MySQL Database",
+            "Implemented a separate .env file with sensitive credentials securely stored outside the codebase."
         ],
-        tech: "Java"
+        tech: "HTML, CSS, JavaScript, MySQL, FastAPI "
     },
     member3: {
         name: "Xia Lee",
