@@ -1,12 +1,15 @@
 // Member details data
 const memberDetails = {
     member1: {
-        name: "Member 1",
-        role: "Role",
+        name: "Kei Vang",
+        role: "Backend/Frontend Developer",
         contributions: [
-            "Contribuutions during the project goes here"
+            "Developed initial idea for project",
+            "Implemented login logic",
+            "Developed map and roll system for user interactivity",
+            "Searched for images for map and character"
         ],
-        tech: "Java"
+        tech: "HTML, Python, FastAPI, CSS, JavaScript, MySQL"
     },
     member2: {
         name: "Member 2",
