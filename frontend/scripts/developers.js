@@ -12,17 +12,15 @@ const memberDetails = {
         tech: "HTML, Python, FastAPI, CSS, JavaScript, MySQL"
     },
     member2: {
-        name: "Member 2",
-        role: "Frontend/Backend Developer",
+        name: "Marcelino Rosario Hernandez",
+        role: "Frontend Developer",
         contributions: [
-            "Developed intial UI design concept", 
-            "Implemented task manipulation logic using JavaScript",
-            "Implemented task creation mechanic" ,
-            "Implemented task completion mechanic", 
-            "Connected task manipulation JavaScript to the MySQL Database",
-            "Implemented a separate .env file with sensitive credentials securely stored outside the codebase."
+            "Implemented the dynamic task list UI for creating, completing, and deleting tasks",
+            "Created a figma prototype to help guide general design",
+            "Created real time updates for XP, level, and gold on the main dashboard",
+            "Debugging code and fixing issues with front-end functionality",
         ],
-        tech: "HTML, CSS, JavaScript, MySQL, FastAPI "
+        tech: "HTML, Python, CSS, JavaScript, Figma"
     },
     member3: {
         name: "Xia Lee",
