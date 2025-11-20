@@ -119,9 +119,7 @@
           <br><br>
           <label for="newTaskDueDateInput"><strong>Enter Task Due Date</strong> (optional):</label>
           <br>
-          <input type="date" id="newTaskDueDateInput" placeholder="Due date (optional)">
-          
-    
+          <input type="text" id="newTaskDueDateInput" placeholder="Due date (optional)">
           <br><br>
   
           <button id="addTaskButton">Add Task</button>
@@ -213,5 +211,19 @@
 <script src="scripts/tasks.js"></script>
 <script src="scripts/characterDisplay.js"></script>
 <script src="scripts/index.js"></script>
+
+
+<!-- Include Flatpickr library -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+flatpickr("#newTaskDueDateInput", {
+    dateFormat: "m-d-Y",        // format like 2025-11-20
+    allowInput: true,            // allow typing manually
+    placeholder: "Due date (optional)", // will display correctly
+});
+</script>
+
 </body>
 </html>

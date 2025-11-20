@@ -1176,18 +1176,63 @@ footer {
 
 
 
-
-
-
-
-
-
 #addTaskButton {
 
-  color: #B0A990;
+  color: #36311f;
   padding:10px;
   border-radius: 10%;
   width: 25%;
   font-size: 15px;
   background-color: #202030;
+  margin-bottom: 10px;
+}
+
+
+input[type="text"],
+input[type="date"] {
+  width: 80%;
+  padding: 12px 14px;
+  margin-top: 8px;
+  border: 2px solid #d0d0d5;
+  border-radius: 10px;
+  font-size: 18px;
+  background-color: #f4f4f8;
+  color: #202030;
+  outline: none;
+  transition: 0.2s ease;
+  text-align: center;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus {
+  border-color: #58587F;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(88, 88, 127, 0.3);
+  text-align: center;
+  
+}
+
+#newTaskDueDateInput {
+  width: 80%;
+  padding: 12px 14px;
+  border: 2px solid #d0d0d5;
+  border-radius: 10px;
+  font-size: 18px;
+  background-color: #f4f4f8;
+  color: #202030;
+  outline: none;
+  text-align: center; 
+  transition: 0.2s ease;
+}
+
+#newTaskDueDateInput:focus {
+  border-color: #58587F;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(88, 88, 127, 0.3);
+}
+
+.flatpickr-calendar {
+  border-radius: 12px;
+  font-family: Verdana, sans-serif;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
