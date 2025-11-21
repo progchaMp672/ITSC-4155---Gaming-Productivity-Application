@@ -170,6 +170,7 @@ addTaskButton.addEventListener("click", async () => {
     if (!title) return alert("Please enter a name for your new task!");
     if (!selectedCategoryId) return alert("Please select a category!");
 
+
     const newTask = {
         title,
         description,
