@@ -18,7 +18,7 @@ form.addEventListener("submit", async (e) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       // backend accepts this as either email OR username
-      body: JSON.stringify({ email: identifier, password: password })
+      body: JSON.stringify({ username: identifier, password: password })
     });
 
     const data = await response.json();

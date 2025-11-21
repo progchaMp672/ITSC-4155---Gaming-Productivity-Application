@@ -7,6 +7,9 @@
 * `pip install pytest-mock`
 * `pip install httpx`
 * `pip install cryptography`
+* `pip install "bcrypt==4.1.2"`
+* `pip install "passlib[bcrypt]"`
+
 
 ### Ensure the password in the config file is changed to match your MySQL password.
 ### Run the server:

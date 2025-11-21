@@ -16,7 +16,15 @@ document.getElementById("newAccountForm").addEventListener("submit", async (even
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.detail || "Failed to create user");
+      let message = "Failed to create user";
+
+      if(Array.isArray(errorData.detail)) {
+        message = errorData.detail[0]?.msg || message;
+    } else if (errorData.detail) {
+        message = errorData.detail;
+    }
+
+      throw new Error(message); // Throw error to be caught below
     }
 
     const data = await response.json();

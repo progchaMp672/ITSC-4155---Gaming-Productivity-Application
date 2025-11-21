@@ -1,12 +1,51 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
+from pydantic import BaseModel
 from datetime import datetime, date
 from backend.database import get_db
 from backend.models.user import User
 from backend.schemas.user import UserCreate, UserResponse
+from backend.security import get_password_hash, verify_password
 from typing import Optional
 
 router = APIRouter(prefix="/users", tags=["Users"])
+
+@router.post("/", response_model=UserResponse)
+def create_user(user: UserCreate, db: Session = Depends(get_db)):
+    # Check if username or email already exists
+    existing_user = db.query(User).filter(User.username == user.username).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Username already exists")
+
+    existing_user = db.query(User).filter(User.email == user.email).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already exists")
+    
+    db_user = User (
+        username=user.username,
+        email=user.email,
+        hashed_password=get_password_hash(user.password),
+        gold =0,
+        exp =0,
+        points =0,
+        level =1,
+    )
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+@router.post("/login")
+def login(data: UserLogin, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.username == data.username).first()
+    if not user or not verify_password(data.password, user.hashed_password):
+        raise HTTPException(status_code=401, detail="Invalid username or password")
+    
+    return {"user_id": user.id, "username": user.username}
 
 def apply_level_up(user: User):
 
@@ -50,14 +89,14 @@ def claim_daily_bonus(user_id: int, db: Session = Depends(get_db)):
         "exp": user.exp,
     }
 
-#Creates a user
-@router.post("/", response_model=UserResponse)
-def create_user(user: UserCreate, db: Session = Depends(get_db)):
-    new_user = User(**user.model_dump())
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-    return new_user
+#Initial creates a user
+#@router.post("/", response_model=UserResponse)
+#def create_user(user: UserCreate, db: Session = Depends(get_db)):
+#    new_user = User(**user.model_dump())
+#    db.add(new_user)
+#    db.commit()
+#    db.refresh(new_user)
+#    return new_user
 
 
 #Reads all users
@@ -100,23 +139,23 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
 
 
 # ---  Login user (UPDATED) ---
-@router.post("/login")
-async def login_user(request: Request, db: Session = Depends(get_db)):
-    data = await request.json()
-    identifier = data.get("email")  # frontend sends "email" even if it’s username
-    password = data.get("password")
+#@router.post("/login")
+#async def login_user(request: Request, db: Session = Depends(get_db)):
+#    data = await request.json()
+#    identifier = data.get("email")  # frontend sends "email" even if it’s username
+#    password = data.get("password")
 
     # Try to find user by email first, then by username
-    user = (
-        db.query(User)
-        .filter((User.email == identifier) | (User.username == identifier))
-        .first()
-    )
+#    user = (
+#        db.query(User)
+#        .filter((User.email == identifier) | (User.username == identifier))
+#        .first()
+#    )
 
-    if not user or user.password != password:  #  plain-text check
-        raise HTTPException(status_code=401, detail="Invalid username/email or password")
+#   if not user or user.password != password:  #  plain-text check
+#       raise HTTPException(status_code=401, detail="Invalid username/email or password")
 
-    return {"message": "Login successful", "user_id": user.id}
+#   return {"message": "Login successful", "user_id": user.id}
 
 
 # ---  Get logged-in user info ---
@@ -161,4 +200,3 @@ def update_user_stats(user_id: int, stats: dict, db: Session = Depends(get_db)):
         "exp": user.exp,
         "points": user.points
     }}
-

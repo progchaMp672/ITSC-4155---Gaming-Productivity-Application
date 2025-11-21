@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from typing import List, Optional
 from backend.schemas.task import TaskResponse
 from backend.schemas.streak import StreakResponse
@@ -13,8 +13,19 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    password: str
+    username: str = Field(..., min_length=3, max_length=50)
+    password: str = Field(..., min_length=8, max_length=50)
 
+    @field_validator("password")
+    @classmethod
+    def strong_password(cls, v: str) -> str:
+        if (len(v) < 8 or
+            not any(c.islower() for c in v) or
+            not any(c.isupper() for c in v) or
+            not any(c.isdigit() for c in v) or
+            not any(c in "!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~" for c in v)):
+            raise ValueError("Password must be at least 8 characters long and include 1 uppercase, 1 lowercase, 1 digit, and 1 special character.")
+        return v
 
 class UserUpdate(BaseModel):
     username: Optional[str] = None

@@ -72,7 +72,7 @@ function renderTask(task) {
     categoryP.style.fontSize = "0.8em";
     categoryP.style.fontStyle = "italic";
     categoryP.textContent =
-      "Category: " + (task.category ? task.category.name : "Uncategorized");
+      " Category: " + (task.category ? task.category.name : "Uncategorized");
 
     const descP = document.createElement("p");
     descP.style.margin = "5px 0 0 0";
