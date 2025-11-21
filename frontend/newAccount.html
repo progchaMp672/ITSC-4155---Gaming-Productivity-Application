@@ -30,7 +30,13 @@
 
         <label for="password">Password</label>
         <input id="password" name="password" type="password" autocomplete="current-password" required />
-
+        <ul id="password-requirements">
+          <li id="req-length" class="invalid">❌ At least 8 characters</li>
+          <li id="req-upper" class="invalid">❌ One uppercase letter (A–Z)</li>
+          <li id="req-lower" class="invalid">❌ One lowercase letter (a–z)</li>
+          <li id="req-digit" class="invalid">❌ One digit (0–9)</li>
+          <li id="req-special" class="invalid">❌ One special character</li>
+        </ul>
         <label for="email">Email</label>
         <input id="email" name="email" type="email" autocomplete="email" required />
 
@@ -42,5 +48,6 @@
 
   <footer></footer>
 <script src="scripts/createUser.js"></script>
+<script src="scripts/passwordChecker.js"></script>
 </body>
 </html>

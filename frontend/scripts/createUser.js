@@ -31,6 +31,8 @@ document.getElementById("newAccountForm").addEventListener("submit", async (even
     console.log("✅ User created:", data);
     alert(`User ${data.username} created successfully!`);
 
+
+    window.location.href = "login.html";
   } catch (error) {
     console.error("❌ Error creating user:", error);
     alert("Error creating user: " + error.message);
