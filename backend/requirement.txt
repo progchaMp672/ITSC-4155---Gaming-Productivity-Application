@@ -1,10 +1,8 @@
-* `pip install fastapi`
-* `pip install "uvicorn[standard]"`  
-* `pip install sqlalchemy`  
-* `pip install pymysql`
-* `pip install pytest`
-* `pip install pytest-mock`
-* `pip install httpx`
-* `pip install cryptography`
-* `pip install "bcrypt==4.1.2"`
-* `pip install "passlib[bcrypt]"`
+fastapi
+uvicorn[standard]
+sqlalchemy
+pymysql
+cryptography
+bcrypt==4.1.2
+passlib[bcrypt]
+python-dotenv
