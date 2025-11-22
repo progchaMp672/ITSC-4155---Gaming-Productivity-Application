@@ -1,4 +1,4 @@
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = "https:web-production-75f23.up.railway.app";
 
 async function refreshUserStats() {
   const userId = localStorage.getItem("user_id");
