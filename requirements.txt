@@ -9,4 +9,4 @@ httpx
 cryptography
 bcrypt==4.1.2
 passlib[bcrypt]
-
+pydantic[email]

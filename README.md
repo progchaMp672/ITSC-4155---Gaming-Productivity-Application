@@ -6,6 +6,7 @@
 * `pip install pytest`
 * `pip install pytest-mock`
 * `pip install httpx`
+* `pip install pydantic[email]`
 * `pip install cryptography`
 * `pip install "bcrypt==4.1.2"`
 * `pip install "passlib[bcrypt]"`
