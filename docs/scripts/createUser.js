@@ -8,7 +8,7 @@ document.getElementById("newAccountForm").addEventListener("submit", async (even
   const payload = { username, password, email };
 
   try {
-    const response = await fetch("https:web-production-75f23.up.railway.app/users/", {
+    const response = await fetch("https://web-production-75f23.up.railway.app/users/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)

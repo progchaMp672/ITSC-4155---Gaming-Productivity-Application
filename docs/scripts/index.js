@@ -1,4 +1,4 @@
-const API_BASE = "https:web-production-75f23.up.railway.app";
+const API_BASE = "https://web-production-75f23.up.railway.app";
 
 async function refreshUserStats() {
   const userId = localStorage.getItem("user_id");
