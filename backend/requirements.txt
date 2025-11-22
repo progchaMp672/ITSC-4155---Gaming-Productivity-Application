@@ -2,7 +2,11 @@ fastapi
 uvicorn[standard]
 sqlalchemy
 pymysql
+python-dotenv
+pytest
+pytest-mock
+httpx
 cryptography
 bcrypt==4.1.2
 passlib[bcrypt]
-python-dotenv
+
