@@ -10,7 +10,11 @@ from backend.seed import seed_categories, seed_achievements
 
 app = FastAPI(title="Accountability Hero API")
 
-origins = ["*"]
+origins = [
+    "https://progchamp672.github.io", 
+    "https://progchamp672.github.io/ITSC-4155---Gaming-Productivity-Application",
+]
+
 
 app.add_middleware(
     CORSMiddleware,
