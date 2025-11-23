@@ -220,6 +220,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  const logoutBtn = document.getElementById("logoutButton");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      const uid = localStorage.getItem("user_id");
+
+      if (uid) {
+        localStorage.removeItem("user_id");
+        localStorage.removeItem(`rolls_user_${uid}`);
+      }
+
+      window.location.href = "login.html";
+    });
+  }
+
   try {
     await refreshUserStats();
     await Promise.all([
