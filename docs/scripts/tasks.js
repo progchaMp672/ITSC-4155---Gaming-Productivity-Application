@@ -1,6 +1,7 @@
 // Simple function to update XP bar percentage
 
-const API_URL = "https://web-production-75f23.up.railway.app/tasks";
+const API_BASE = "https://web-production-75f23.up.railway.app";
+const API_URL = `${API_BASE}/tasks`;
 
 const taskList = document.querySelector(".tasks ul");
 const addTaskButton = document.getElementById("addTaskButton");
