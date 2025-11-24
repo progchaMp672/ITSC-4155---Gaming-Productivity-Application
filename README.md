@@ -12,10 +12,11 @@
 * `pip install "passlib[bcrypt]"`
 
 ### Run Locally:
-## To run locally, change existing URL to local host in both the frontend and the backend
-## Create a .env file in the root of the project
-## Ensure the password in the config file is changed to match your MySQL password.
-## Continue onto MySQL and create a schema that matches the schema in the backend/config.py file
+- To run locally, change existing URL to local host in both the frontend and the backend
+- Create a `.env`. file in the root of the project
+- Ensure the password in the config file is changed to match your MySQL password.
+- Continue onto MySQL and create a schema that matches the schema in the `backend/config.py`.
+
 ### Run the server:
 `uvicorn backend.main:app --reload`
 ### Test API by built-in docs:
