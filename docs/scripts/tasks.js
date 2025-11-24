@@ -1,5 +1,3 @@
-// Simple function to update XP bar percentage
-
 const API_URL = "https://web-production-75f23.up.railway.app/tasks";
 
 const taskList = document.querySelector(".tasks ul");
@@ -9,7 +7,7 @@ const newTaskDescriptionInput = document.getElementById("newTaskDescriptionInput
 const newTaskDueDateInput = document.getElementById("newTaskDueDateInput");
 
 
-
+// Simple function to update XP bar percentage based on current and max XP
 function updateXPBar() {
     const currentXP = parseInt(document.getElementById('currentXP').textContent || "0", 10);
     const maxXP = parseInt(document.getElementById('maxXP').textContent || "10", 10);
@@ -38,7 +36,7 @@ function renderTask(task) {
     li.style.backgroundColor = task.category.color || "#ddd";
     li.style.boxShadow = "0 2px 5px rgba(0,0,0,0.1)";
     li.style.color = "rgba(0,0,0,.7)";
-  /*
+  /* Original innerHTML approach:
     const dueDateText = task.due_date
       ? `<p style="margin: 5px 0 0 0; font-size: 0.8em;">Due: ${new Date(task.due_date).toLocaleDateString()}</p>`
       : "";
@@ -56,6 +54,8 @@ function renderTask(task) {
       <button class="delete-btn" data-id="${task.id}" style="background: none; border: none; font-size: 1.2em; cursor: pointer;">🗑</button>
     `;
 */
+
+// New wrapper approach for XSS Cross-Site scripting safety
     const wrapper = document.createElement("div");
 
     const label = document.createElement("label");
@@ -65,7 +65,7 @@ function renderTask(task) {
     checkbox.checked = !!task.completed;
 
     const titleStrong = document.createElement("strong");
-    titleStrong.textContent = task.title; // SAFE
+    titleStrong.textContent = task.title; // Safe from XSS
 
     const categoryP = document.createElement("p");
     categoryP.style.margin = "5px 0 0 0";
@@ -109,6 +109,7 @@ function renderTask(task) {
     taskList.appendChild(li);
   }
 
+  // Function to load tasks from backend
 async function loadTasks() {
   const userId = Number(localStorage.getItem("user_id"));
   if (!userId) {
@@ -154,6 +155,7 @@ categoryButtons.forEach(button => {
     });
   });
 
+  // Add Task button click handler to create a new task
 addTaskButton.addEventListener("click", async () => {
     const title = newTaskTitleInput.value.trim();
     const description = newTaskDescriptionInput.value.trim();
@@ -171,6 +173,7 @@ addTaskButton.addEventListener("click", async () => {
     if (!selectedCategoryId) return alert("Please select a category!");
 
 
+    // Create the new task object with these details
     const newTask = {
         title,
         description,
@@ -212,34 +215,10 @@ addTaskButton.addEventListener("click", async () => {
     }
 });
 
-    
-        /*if (res.ok) {
-            const createdTask = await res.json();
-          
-            // render it immediately
-            renderTask(createdTask);
-          
-            // then reset inputs
-            newTaskTitleInput.value = "";
-            newTaskDescriptionInput.value = "";
-            newTaskDueDateInput.value = "";
-            categoryButtons.forEach(btn => btn.style.outline = "none");
-            selectedCategoryId = null;
-        } else {
-          const err = await res.text();
-          console.error("Failed to create task:", err);
-          alert("Failed to create task"+ err.message);
-        }
-      } catch (error) {
-        console.error("Error creating task:", error);
-        alert("An error occurred: "+ error.message);
-      }
-    });
-    */
-
 /* ===============================================================================
                                 COMPLETE TASK FUNCTION  
 ===============================================================================*/
+// Handle checkbox changes to mark tasks as completed
 taskList.addEventListener("change", async (e) => {
   if (!e.target.matches("input[type='checkbox']")) return;
 
@@ -271,6 +250,9 @@ taskList.addEventListener("change", async (e) => {
         label.style.opacity = "0.6";
       }
 
+      // Output and rewards fixed amounts to user
+      // Setup rewards for task completion based on the tier of the task, not implemented yet
+      // For now, fixed rewards:
       addToLog(`You completed: ${taskText}`);
       addToLogTemp("You gained 5 gold and 7 EXP!");
       showNotification("Task Completed! EXP and Gold awarded!");
@@ -282,6 +264,7 @@ taskList.addEventListener("change", async (e) => {
         await window.updateTaskCompletedCount(userId);
       }
 
+      // Ensures roll count increments and shows popup correctly
       const rollKey = `rolls_user_${userId}`;
       let numberOfRolls = Number(localStorage.getItem(rollKey)) || 0;
       numberOfRolls += 1;
@@ -291,7 +274,7 @@ taskList.addEventListener("change", async (e) => {
       if (rollCountEl) rollCountEl.textContent = numberOfRolls;
       showRollPopup("+1 Roll");
 
-      // Prevent double-counting this task
+      // prevent double-counting this task
       e.target.disabled = true;
 
       // Fade out and remove the task after a short delay
@@ -330,7 +313,7 @@ taskList.addEventListener("change", async (e) => {
   /* ===============================================================================
                                 DELETE TASK FUNCTION  
 ===============================================================================*/
-
+// Handle delete button clicks to remove tasks
 taskList.addEventListener("click", async (e) => {
     if (e.target.matches(".delete-btn")) {
       const id = e.target.dataset.id;
@@ -351,41 +334,6 @@ taskList.addEventListener("click", async (e) => {
     }
   });
 
-  
-/* REMOVED FOR MERGING 
-// Game data
-let level = 1;
-let currentXP = 5;
-let maxXP = 10;
-let gold = 5;
-let tasksCompleted = 0;
-let rolls = 0;
-let sessionXPGained = 0;
-*/
-
-/* REMOVED FOR MERGING --> conflicts with backend
-
-// When page loads, set up everything
-document.addEventListener('DOMContentLoaded', function() {
-    
-  
-  ssBar();
-    setupTaskCheckboxes();
-    setupAddTaskButton();
-});
-
-*/
-
-/* REMOVED FOR MERGE --> the updateXPBar method works with the backend
-
-// Updates the XP progress bar
-function updateProgressBar() {
-    let xpBar = document.getElementById('xpBar');
-    let percentage = (currentXP / maxXP) * 100;
-    xpBar.style.width = percentage + '%';
-}
-*/
-
 // Update the display on screen
 function updateDisplay() {
     document.getElementById('currentXP').textContent = currentXP;
@@ -398,74 +346,6 @@ function updateDisplay() {
     updateProgressBar();
 }
 
-/* REMOVED FOR MERGING, my code does this, it will just need to add rewards and XP and such
-
-// When a task is checked effects
-function setupTaskCheckboxes() {
-    document.addEventListener('change', function(e) {
-        if (e.target.type === 'checkbox' && e.target.closest('.tasks')) {
-            let checkbox = e.target;
-            let label = checkbox.parentElement;
-            let taskItem = label.parentElement;
-
-            if (checkbox.checked) {
-                // Task completed!
-                const taskText = (label.textContent || '').trim();
-
-                label.style.textDecoration = 'line-through';
-                label.style.opacity = '0.6';
-
-                // Rewards fixed amounts
-                currentXP      += 10;
-                gold           += 5;
-                rolls          += 1;
-                tasksCompleted += 1;
-                sessionXPGained += 10;
-
-                // Update display
-                updateDisplay();
-
-                // ---- LOG LINES ----
-                // Permanent history line:
-                addToLog('You completed: ' + taskText);
-
-                // Temporary reward lines / automatically disappear:
-                addToLogTemp('You gain 10 XP!');
-                addToLogTemp('You gain 5 gold!');
-                addToLogTemp('🎲 +1 Roll');
-
-                // Level/achievements
-                checkLevelUp();
-                checkAchievements();
-
-                // Show notification and celebration!
-                showNotification('Task Completed! +10 XP, +5 Gold, +1 Roll!');
-                createCelebrationParticles();
-
-                // Prevent double counting this task
-                checkbox.disabled = true;
-
-                setTimeout(() => {
-                    taskItem.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    taskItem.style.opacity = '0';
-                    taskItem.style.transform = 'translateX(50px)';
-                    
-                    // Remove from DOM after fade animation completes
-                    setTimeout(() => {
-                        taskItem.remove();
-                    }, 500);
-                }, 2000);
-
-            } else {
-                // If ever unchecked (rare, since we disable), restore style
-                label.style.textDecoration = 'none';
-                label.style.opacity = '1';
-            }
-        }
-    });
-}
-
-*/
 // Check if player leveled up
 function checkLevelUp() {
     if (currentXP >= maxXP) {
@@ -551,7 +431,7 @@ function showNotification(message) {
     setTimeout(() => notification.remove(), 3000);
 }
 
-// Add celebration particles when task completed
+// Add celebration particles when task ia completed
 function createCelebrationParticles() {
     const colors = ['⭐', '✨', '💫', '🌟'];
     const statsBox = document.querySelector('.stats');
@@ -577,6 +457,7 @@ function createCelebrationParticles() {
     }
 }
 
+// Show XP gain popup animation
 function showXPPopup(text = "+7 XP, +5 Gold") {
   const statsBox = document.querySelector(".stats");
   if (!statsBox) return;
@@ -602,7 +483,7 @@ function showXPPopup(text = "+7 XP, +5 Gold") {
   document.body.appendChild(popup);
   setTimeout(() => popup.remove(), 1200);
 }
-
+// Show Roll gain popup animation
 function showRollPopup(text = "+1 Roll") {
   const rollBtn = document.getElementById("rollButton");
   if (!rollBtn) return;

@@ -10,6 +10,7 @@ from typing import Optional
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
+# Create a new user, with hashed password, initial stats
 @router.post("/", response_model=UserResponse)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     # Check if username or email already exists
@@ -39,6 +40,7 @@ class UserLogin(BaseModel):
     username: str
     password: str
 
+# login user, verify password
 @router.post("/login")
 def login(data: UserLogin, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == data.username).first()
@@ -46,7 +48,7 @@ def login(data: UserLogin, db: Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail="Invalid username or password")
     
     return {"user_id": user.id, "username": user.username}
-
+# Level up logic
 def apply_level_up(user: User):
 
     if user.exp is None:
@@ -60,7 +62,7 @@ def apply_level_up(user: User):
     while user.exp >= user.level * 10:
         user.exp -= user.level * 10
         user.level += 1
-
+# Daily bonus endpoint
 @router.post("/{user_id}/daily-bonus")
 def claim_daily_bonus(user_id: int, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).first()
@@ -88,15 +90,6 @@ def claim_daily_bonus(user_id: int, db: Session = Depends(get_db)):
         "level": user.level,
         "exp": user.exp,
     }
-
-#Initial creates a user
-#@router.post("/", response_model=UserResponse)
-#def create_user(user: UserCreate, db: Session = Depends(get_db)):
-#    new_user = User(**user.model_dump())
-#    db.add(new_user)
-#    db.commit()
-#    db.refresh(new_user)
-#    return new_user
 
 
 #Reads all users
@@ -136,26 +129,6 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     db.delete(user)
     db.commit()
     return {"detail": "User deleted"}
-
-
-# ---  Login user (UPDATED) ---
-#@router.post("/login")
-#async def login_user(request: Request, db: Session = Depends(get_db)):
-#    data = await request.json()
-#    identifier = data.get("email")  # frontend sends "email" even if it’s username
-#    password = data.get("password")
-
-    # Try to find user by email first, then by username
-#    user = (
-#        db.query(User)
-#        .filter((User.email == identifier) | (User.username == identifier))
-#        .first()
-#    )
-
-#   if not user or user.password != password:  #  plain-text check
-#       raise HTTPException(status_code=401, detail="Invalid username/email or password")
-
-#   return {"message": "Login successful", "user_id": user.id}
 
 
 # ---  Get logged-in user info ---

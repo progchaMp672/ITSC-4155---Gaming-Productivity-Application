@@ -25,7 +25,7 @@ def apply_level_up(user: User):
     if user.exp >= exp_needed:
         user.level += 1
         user.exp = 0
-
+# Daily bonus logic, updates streaks
 def update_user_streak(db: Session, user_id: int, streak_type: str = "daily_tasks"):
     # Get the user's streak
     streak = (

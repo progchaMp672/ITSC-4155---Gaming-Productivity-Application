@@ -11,7 +11,7 @@ from backend.schemas.user_achievement import UserAchievementCreate, UserAchievem
 
 router = APIRouter(prefix="/user-achievements", tags=["UserAchievements"])
 
-#Assign achievement to a user
+#Assign achievement to a user, with optional datetime
 @router.post("/", response_model=UserAchievementResponse)
 def assign_achievement(user_achievement: UserAchievementCreate, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_achievement.user_id).first()

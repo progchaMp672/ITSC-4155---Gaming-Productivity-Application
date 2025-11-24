@@ -5,7 +5,7 @@ from backend.models.user import User
 from backend.models.task import Task
 
 router = APIRouter(prefix="/dashboard", tags=["Dashboard"])
-
+# Dashboard data endpoint, combines user info and tasks
 @router.get("/{user_id}")
 def get_dashboard_data(user_id: int, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).first()

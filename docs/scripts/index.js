@@ -39,6 +39,7 @@ async function refreshUserStats() {
   if (xpBar) xpBar.style.width = `${percent}%`;
 }
 
+// Load and display user's current streak
 async function loadUserStreak(userId) {
   const streakCountEl = document.getElementById("streakCount");
   if (!streakCountEl) return;
@@ -71,7 +72,7 @@ async function loadUserStreak(userId) {
     streakCountEl.textContent = "0";
   }
 }
-
+// Load and display user's latest achievement
 async function loadLatestAchievement(userId) {
   const achievementEl = document.getElementById("recentAchievement");
   const achievementListEl = document.getElementById("achievementList");
@@ -127,7 +128,7 @@ async function loadLatestAchievement(userId) {
     achievementEl.textContent = "Achievements unavailable";
   }
 }
-
+// Update and display count of completed tasks
 async function updateTaskCompletedCount(userId) {
   const el = document.getElementById("taskCompletedCount");
   if (!el) return;
@@ -149,7 +150,7 @@ async function updateTaskCompletedCount(userId) {
     console.error("Error counting completed tasks:", err);
   }
 }
-
+// Claim daily bonus for user
 async function claimDailyBonus() {
   const userId = localStorage.getItem("user_id");
   if (!userId) return;
@@ -193,7 +194,7 @@ async function claimDailyBonus() {
     if (msgEl) msgEl.textContent = "Error claiming bonus.";
   }
 }
-
+// Initialize and display user's roll count from localStorage
 function initRollsDisplay() {
   const userId = Number(localStorage.getItem("user_id"));
   const rollCountEl = document.getElementById("rollCount");
@@ -205,7 +206,7 @@ function initRollsDisplay() {
 }
 
 
-
+// Expose functions globally for use in other scripts
 window.refreshUserStats = refreshUserStats;
 window.loadUserStreak = loadUserStreak;
 window.loadLatestAchievement = loadLatestAchievement;

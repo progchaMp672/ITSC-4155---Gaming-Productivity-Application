@@ -3,7 +3,8 @@ from passlib.context import CryptContext
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 max_bcrypt_length = 72
-
+#  Bcrypt only considers the first 72 bytes of a password. 
+# To ensure consistent hashing and verification, we trim passwords to this length.
 def _trim(password: str) -> str:
     if password is None:
         return ""

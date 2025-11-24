@@ -45,16 +45,6 @@ def create_or_update_streak(streak_data: StreakCreate, db: Session = Depends(get
 
     return streak
 
-
-    #Create a streak(Original CRUD)
-    #@router.post("/", response_model=StreakResponse)
-    #def create_streak(streak: StreakCreate, db: Session = Depends(get_db)):
-    #    new_streak = Streak(**streak.model_dump())
-    #    db.add(new_streak)
-    #    db.commit()
-    #    db.refresh(new_streak)
-    #    return new_streak
-
 #Read a streak
 @router.get("/{streak_id}", response_model=StreakResponse)
 def get_streak(streak_id: int, db: Session = Depends(get_db)):

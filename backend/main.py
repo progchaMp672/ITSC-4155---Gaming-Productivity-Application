@@ -15,7 +15,8 @@ origins = [
     "https://progchamp672.github.io/ITSC-4155---Gaming-Productivity-Application",
 ]
 
-
+# Enable CORS, this ensures frontend can communicate with backend
+# Allows requests from the specified origins
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

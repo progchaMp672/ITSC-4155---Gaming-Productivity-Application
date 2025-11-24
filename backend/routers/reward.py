@@ -63,7 +63,7 @@ def delete_reward(reward_id: int, db: Session = Depends(get_db)):
     db.commit()
     return {"detail": "Reward deleted"}
 
-#Redeem reward
+#Redeem reward, deduct points, log redemption
 @router.post("/{reward_id}/redeem", response_model=RewardRedeemResponse)
 def redeem_reward(reward_id: int, user_id: int, db: Session = Depends(get_db)):
     reward = db.query(Reward).filter(Reward.id == reward_id).first()
