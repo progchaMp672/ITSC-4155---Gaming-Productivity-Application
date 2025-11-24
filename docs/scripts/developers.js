@@ -46,12 +46,17 @@ const memberDetails = {
         tech: "Python, FastAPI, Pydantic, API design, System Modeling, MySQL, Javascript, HTML"
     },
     member5: {
-        name: "Member 5",
-        role: "Role",
+        name: "Kialey Goliber",
+        role: "Frontend/Backend Developer",
         contributions: [
-            "Contribuutions during the project goes here"
+            "Contributed to intial Development of UI design concept", 
+            "Implemented task manipulation logic using JavaScript",
+            "Implemented task creation mechanic" ,
+            "Implemented task completion mechanic", 
+            "Connected task manipulation JavaScript to the MySQL Database",
+            "Implemented a separate .env file with sensitive credentials securely stored outside the codebase."
         ],
-        tech: "Java"
+        tech: "HTML, CSS, JavaScript, MySQL, FastAPI "
     }
 };
 
